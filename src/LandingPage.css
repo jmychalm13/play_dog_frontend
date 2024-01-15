@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
 .hero {
   position: relative;
 }
@@ -11,5 +13,9 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity as needed */
   z-index: 1;
+}
+
+.heading {
+  font-family: 'Acme', sans-serif;
 }
 
