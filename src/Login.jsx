@@ -7,6 +7,7 @@ if (jwt) {
 }
 
 export function Login() {
+  // eslint-disable-next-line no-unused-vars
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = (event) => {

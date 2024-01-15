@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function Signup() {
+  // eslint-disable-next-line no-unused-vars
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = (event) => {
