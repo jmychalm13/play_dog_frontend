@@ -22,7 +22,7 @@ export function Signup() {
   };
 
   return (
-    <section className="bg-gradient-to-b from-gray-300 to-green-800 h-screen flex items-center justify-center">
+    <section className="bg-gradient-to-b from-gray-300 to-emerald-800 h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full sm:w-96">
         <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
         {/* Signup Form Here */}
@@ -55,7 +55,7 @@ export function Signup() {
             </label>
             <input type="password" name="password_confirmation" className="mt-1 p-2 w-full border rounded-md" />
           </div>
-          <button type="submit" className="w-full bg-gray-400 text-white p-2 rounded-md hover:bg-gray-500">
+          <button type="submit" className="w-full bg-emerald-400 text-white p-2 rounded-md hover:bg-emerald-500">
             Sign Up
           </button>
         </form>

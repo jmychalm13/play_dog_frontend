@@ -1,65 +1,96 @@
 import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
-export function Header() {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+const navigation = [
+  { name: "Playdates", href: "#" },
+  { name: "Friends", href: "#" },
+  { name: "Profile", href: "#" },
+  // { name: "Company", href: "#" },
+];
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen);
-  };
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-700 text-white">
-      <div className="container mx-auto px-4 py-6 flex items-center justify-between">
-        <div className="flex items-center">
-          <Link to="/" className="text-3xl font-bold font-heading">
-            <img src="src/assets/logo-transparent-png.png" alt="" className="h-12" />
+    <header className="bg-emerald-900">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div className="flex lg:flex-1">
+          <Link to="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Your Company</span>
+            {/* logo */}
+            <img className="rounded-lg h-14 w-auto" src="/src/assets/logo-png.png" alt="" />
           </Link>
         </div>
-
-        <div className="flex items-center">
-          <ul
-            className={`${
-              isMobileMenuOpen ? "flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-5" : "hidden"
-            } md:flex md:space-x-5 font-semibold font-heading`}
+        <div className="flex lg:hidden">
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-emerald-400"
+            onClick={() => setMobileMenuOpen(true)}
           >
-            <li>
-              <Link className="hover:text-gray-200" to="#">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-gray-200" to="#">
-                Friends
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-gray-200" to="#">
-                Pups
-              </Link>
-            </li>
-            <li>
-              <Link className="hover:text-gray-200" to="#">
-                Playdates
-              </Link>
-            </li>
-          </ul>
-
-          <div className="md:hidden ml-3">
-            {/* Mobile menu button */}
-            <button className="text-white focus:outline-none" onClick={toggleMobileMenu}>
-              {isMobileMenuOpen ? "Close" : "Menu"}
+            <span className="sr-only">Open main menu</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className="hidden lg:flex lg:gap-x-12">
+          {navigation.map((item) => (
+            <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-neutral-100">
+              {item.name}
+            </Link>
+          ))}
+        </div>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <Link to="/login" className="text-sm font-semibold leading-6 text-neutral-100">
+            Log in <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
+      </nav>
+      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+        <div className="fixed inset-0 z-10" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-emerald-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+          <div className="flex items-center justify-between">
+            <Link href="#" className="-m-1.5 p-1.5">
+              {/* classname sr-only is for screen reader */}
+              <span className="sr-only">Your Company</span>
+              {/* logo */}
+              <img className="rounded-lg h-8 w-auto" src="src/assets/logo-png.png" alt="" />
+            </Link>
+            <button
+              type="button"
+              className="-m-2.5 rounded-md p-2.5 text-emerald-400"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {/* screen reader */}
+              <span className="sr-only">Close menu</span>
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-        </div>
-
-        <div className="hidden md:flex items-center space-x-5">
-          <Link className="hover:text-gray-200">
-            {/* Todo: put account icon from some icon library */}
-            Account
-          </Link>
-        </div>
-      </div>
-    </nav>
+          <div className="mt-6 flow-root">
+            <div className="-my-6 divide-y divide-emerald-500/25">
+              <div className="space-y-2 py-6">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="py-6">
+                <Link
+                  to="/login"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
+                >
+                  Log in
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Dialog.Panel>
+      </Dialog>
+    </header>
   );
 }
