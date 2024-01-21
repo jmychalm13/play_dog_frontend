@@ -55,7 +55,10 @@ export function Signup() {
             </label>
             <input type="password" name="password_confirmation" className="mt-1 p-2 w-full border rounded-md" />
           </div>
-          <button type="submit" className="w-full bg-emerald-400 text-white p-2 rounded-md hover:bg-emerald-500">
+          <button
+            type="submit"
+            className="w-full bg-emerald-400 text-text-neutral-100 p-2 rounded-md hover:bg-emerald-500"
+          >
             Sign Up
           </button>
         </form>

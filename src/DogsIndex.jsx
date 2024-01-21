@@ -1,0 +1,53 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+export function DogsIndex() {
+  const [dogs, setDogs] = useState([]);
+
+  const jwt = localStorage.getItem("jwt");
+
+  const getUserDogs = () => {
+    axios
+      .get("http://localhost:3000/dogs.json", {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((response) => {
+        setDogs(response.data);
+        console.log(response.data);
+      });
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(getUserDogs, []);
+
+  return (
+    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-screen relative">
+      <h1>Your Pets</h1>
+      <div className="dogs">
+        {dogs.map((dog) => (
+          <div
+            key={dog.id}
+            className="flex flex-col items-center bg-white border border-emerald-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
+          >
+            <img
+              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+              src={dog.image_url}
+              alt=""
+            />
+            <div className="flex flex-col justify-between p-4 leading-normal">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-emerald-900 dark:text-neutral-100">
+                {dog.name}
+              </h5>
+              {/* more content  */}
+              <p className="mb-3 font-normal text-emerald-700 dark:text-emerald-400">
+                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

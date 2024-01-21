@@ -3,6 +3,7 @@ import { LandingPage } from "./LandingPage";
 import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { UsersIndex } from "./UsersIndex";
+import { DogsIndex } from "./DogsIndex";
 
 export function Content() {
   return (
@@ -12,6 +13,7 @@ export function Content() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dogs" element={<DogsIndex />} />
       </Routes>
     </div>
   );
