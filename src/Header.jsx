@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: "Playdates", href: "#" },
-  { name: "Friends", href: "#" },
-  { name: "Profile", href: "#" },
-  // { name: "Company", href: "#" },
+  { name: "Playdates", to: "#" },
+  { name: "Friends", to: "#" },
+  { name: "Profile", to: "#" },
+  { name: "Pets", to: "/dogs" },
 ];
 
 export function Header() {
@@ -35,7 +35,7 @@ export function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-neutral-100">
+            <Link key={item.name} to={item.to} className="text-sm font-semibold leading-6 text-neutral-100">
               {item.name}
             </Link>
           ))}
@@ -50,7 +50,7 @@ export function Header() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-emerald-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
           <div className="flex items-center justify-between">
-            <Link href="#" className="-m-1.5 p-1.5">
+            <Link to="#" className="-m-1.5 p-1.5">
               {/* classname sr-only is for screen reader */}
               <span className="sr-only">Your Company</span>
               {/* logo */}
@@ -72,7 +72,7 @@ export function Header() {
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.to}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
                   >
                     {item.name}
