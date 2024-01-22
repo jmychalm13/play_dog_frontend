@@ -4,6 +4,7 @@ import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { UsersIndex } from "./UsersIndex";
 import { DogsIndex } from "./DogsIndex";
+import { UserShow } from "./UserShow";
 
 export function Content() {
   return (
@@ -14,6 +15,7 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dogs" element={<DogsIndex />} />
+        <Route path="/user/:id" element={<UserShow />} />
       </Routes>
     </div>
   );
