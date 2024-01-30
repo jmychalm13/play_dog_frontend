@@ -22,6 +22,7 @@ export function Login() {
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
         // redirect - interpolate with user_id
+        window.location.href = `/user/${response.data.user_id}`;
       })
       .catch((error) => {
         console.log(error.response);
