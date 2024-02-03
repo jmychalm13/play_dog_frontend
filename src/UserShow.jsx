@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { EditUserModal } from "./EditUserModal";
 
 export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
-  const params = useParams();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleGetUser = () => {
-    axios.get(`http://localhost:3000/users/${params.id}.json`).then((response) => {
+    axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
       setUserInfo(response.data);
     });
   };

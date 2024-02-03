@@ -20,9 +20,10 @@ export function Login() {
         console.log(response.data);
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
+        localStorage.setItem("userId", response.data.user_id);
         event.target.reset();
         // redirect - interpolate with user_id
-        window.location.href = `/user/${response.data.user_id}`;
+        window.location.href = `/profile`;
       })
       .catch((error) => {
         console.log(error.response);

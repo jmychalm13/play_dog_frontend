@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { LogoutLink } from "./LogoutLink";
 
 const navigation = [
   { name: "Playdates", to: "#" },
   { name: "Friends", to: "#" },
-  { name: "Profile", to: "#" },
+  { name: "Profile", to: "/profile" },
   { name: "Pets", to: "/dogs" },
 ];
 
@@ -41,9 +42,13 @@ export function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/login" className="text-sm font-semibold leading-6 text-neutral-100">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {localStorage.getItem("jwt") === null ? (
+            <Link to="/login" className="text-sm font-semibold leading-6 text-neutral-100">
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          ) : (
+            <LogoutLink />
+          )}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -80,12 +85,16 @@ export function Header() {
                 ))}
               </div>
               <div className="py-6">
-                <Link
-                  to="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
-                >
-                  Log in
-                </Link>
+                {localStorage.getItem("jwt") === null ? (
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
+                  >
+                    Log in
+                  </Link>
+                ) : (
+                  <LogoutLink />
+                )}
               </div>
             </div>
           </div>

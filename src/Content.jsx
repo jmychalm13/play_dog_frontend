@@ -15,7 +15,7 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dogs" element={<DogsIndex />} />
-        <Route path="/user/:id" element={<UserShow />} />
+        <Route path="/profile" element={<UserShow />} />
       </Routes>
     </div>
   );
