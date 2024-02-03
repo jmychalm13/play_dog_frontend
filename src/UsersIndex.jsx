@@ -6,8 +6,11 @@ export function UsersIndex() {
   const getAllUsers = () => {
     axios.get("http://localhost:3000/users.json").then((response) => {
       setUsers(response.data);
-      console.log(response.data);
     });
+  };
+
+  const addFriend = () => {
+    console.log("Triggered");
   };
 
   useEffect(getAllUsers, []);
@@ -33,11 +36,14 @@ export function UsersIndex() {
                 </div>
               ))}
               <div className="flex mt-4 md:mt-6">
-                <button className="mx-2 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-neutral-100 bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  Add Friend
+                <button
+                  onClick={addFriend}
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800"
+                >
+                  Add friend
                 </button>
-                <button className="mx-2 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-neutral-100 bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  Schedule Playdate
+                <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-stone-900 bg-white border border-stone-300 rounded-lg hover:bg-stone-100 focus:ring-4 focus:outline-none focus:ring-stone-200 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-700 dark:focus:ring-stone-700 ms-3">
+                  Message
                 </button>
               </div>
             </div>

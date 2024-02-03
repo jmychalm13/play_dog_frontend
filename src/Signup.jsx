@@ -43,6 +43,13 @@ export function Signup() {
           </div>
           {/* Input Field */}
           <div className="mb-4">
+            <label htmlFor="image_url" className="block text-sm font-medium text-gray-600">
+              Image
+            </label>
+            <input type="image_url" name="image_url" className="mt-1 p-2 w-full border rounded-md" />
+          </div>
+          {/* Input Field */}
+          <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-600">
               Password
             </label>
