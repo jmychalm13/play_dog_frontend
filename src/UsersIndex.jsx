@@ -9,8 +9,17 @@ export function UsersIndex() {
     });
   };
 
-  const addFriend = () => {
-    console.log("Triggered");
+  const addFriend = (selected) => {
+    const currentUser = localStorage.getItem("userId");
+    const selectedUser = selected;
+    const params = {
+      user_id: currentUser,
+      friend_id: selectedUser,
+      status: false,
+    };
+    axios.post("http://localhost:3000/friendships.json", params).then((response) => {
+      console.log(response);
+    });
   };
 
   useEffect(getAllUsers, []);
@@ -37,7 +46,7 @@ export function UsersIndex() {
               ))}
               <div className="flex mt-4 md:mt-6">
                 <button
-                  onClick={addFriend}
+                  onClick={() => addFriend(user.id)}
                   className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-stone-800"
                 >
                   Add friend
