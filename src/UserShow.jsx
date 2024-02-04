@@ -10,6 +10,7 @@ export function UserShow() {
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
       setUserInfo(response.data);
+      console.log("user info: ", response.data);
     });
   };
 
@@ -25,6 +26,16 @@ export function UserShow() {
     });
   };
 
+  const acceptFriendRequest = (id) => {
+    const params = {
+      status: true,
+    };
+    axios.patch(`http://localhost:3000/friendships/${id}.json`, params).then((response) => {
+      console.log(response);
+    });
+    handleGetUser();
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(handleGetUser, []);
 
@@ -38,6 +49,31 @@ export function UserShow() {
           </h3>
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
+      </div>
+      <div className="my-12">
+        <p className="text-2xl text-center underline">Friend Requests</p>
+        {userInfo &&
+          userInfo.friendships &&
+          userInfo.friendships.map((friendship) => (
+            <div key={friendship.id} className="flex flex-col items-center pb-10">
+              <p>{friendship.friend_name}</p>
+              <div>
+                {!friendship.status ? (
+                  <div>
+                    <button
+                      onClick={() => acceptFriendRequest(friendship.id)}
+                      type="button"
+                      className="text-white bg-gradient-to-r from-zinc-400 via-zinc-500 to-zinc-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-zinc-300 dark:focus:ring-zinc-800 shadow-lg shadow-zinc-500/50 dark:shadow-lg dark:shadow-zinc-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >
+                      Accept Request
+                    </button>
+                  </div>
+                ) : (
+                  <p>Friends</p>
+                )}
+              </div>
+            </div>
+          ))}
       </div>
       <div className="my-12">
         <h2 className="text-center text-2xl underline">Dogs</h2>
