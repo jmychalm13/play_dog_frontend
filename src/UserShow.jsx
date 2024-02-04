@@ -33,11 +33,10 @@ export function UserShow() {
     axios.patch(`http://localhost:3000/friendships/${id}.json`, params).then((response) => {
       console.log(response);
     });
-    handleGetUser();
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(handleGetUser, []);
+  useEffect(handleGetUser, [userInfo]);
 
   return (
     <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full">
@@ -50,30 +49,58 @@ export function UserShow() {
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
       </div>
-      <div className="my-12">
-        <p className="text-2xl text-center underline">Friend Requests</p>
-        {userInfo &&
-          userInfo.friendships &&
-          userInfo.friendships.map((friendship) => (
-            <div key={friendship.id} className="flex flex-col items-center pb-10">
-              <p>{friendship.friend_name}</p>
-              <div>
-                {!friendship.status ? (
-                  <div>
-                    <button
-                      onClick={() => acceptFriendRequest(friendship.id)}
-                      type="button"
-                      className="text-white bg-gradient-to-r from-zinc-400 via-zinc-500 to-zinc-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-zinc-300 dark:focus:ring-zinc-800 shadow-lg shadow-zinc-500/50 dark:shadow-lg dark:shadow-zinc-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    >
-                      Accept Request
-                    </button>
-                  </div>
-                ) : (
-                  <p>Friends</p>
-                )}
+      <p className="my-10 text-2xl text-center underline">Friend Requests</p>
+      <div className="flex justify-center items-center h-screen">
+        <div className="grid grid-cols-3 gap-4 w-full">
+          {userInfo &&
+            userInfo.friendships &&
+            userInfo.friendships.map((friendship) => (
+              <div
+                key={friendship.id}
+                className="request-card border rounded-lg shadow-lg border-emerald-900 bg-neutral-400 flex flex-col items-center pb-10"
+              >
+                <img
+                  className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                  src={friendship.friend_image}
+                  alt="profile pic"
+                />
+                <p className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{friendship.friend_name}</p>
+                <div className="w-24 h-24 mb-3">
+                  {!friendship.status ? (
+                    <div>
+                      <button
+                        onClick={() => acceptFriendRequest(friendship.id)}
+                        type="button"
+                        className="text-white bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 shadow-lg shadow-emerald-500/50 dark:shadow-lg dark:shadow-emerald-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        Accept Request
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="border rounded-lg border-emerald-900 text-emerald-900 flex items-center">
+                      <p className="flex items-center">
+                        Friends
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                          />
+                        </svg>
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
       <div className="my-12">
         <h2 className="text-center text-2xl underline">Dogs</h2>
