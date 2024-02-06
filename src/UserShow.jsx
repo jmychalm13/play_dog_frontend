@@ -6,6 +6,8 @@ import { EditUserModal } from "./EditUserModal";
 export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentFriends, setCurrentFriends] = useState([]);
+  const [pendingFriends, setPendingFriends] = useState([]);
 
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
@@ -26,17 +28,38 @@ export function UserShow() {
     });
   };
 
+  const getAllFriendships = () => {
+    axios.get("http://localhost:3000/friendships.json").then((response) => {
+      const data = response.data;
+      let friends = [];
+      let pending = [];
+      data.forEach((friend) => {
+        console.log("friends:", friend);
+        if (friend.status) {
+          friends.push(friend.friend_id);
+        } else {
+          pending.push(friend.friend_id);
+        }
+      });
+      setCurrentFriends(friends);
+      setPendingFriends(pending);
+    });
+  };
+
   const acceptFriendRequest = (id) => {
     const params = {
       status: true,
     };
     axios.patch(`http://localhost:3000/friendships/${id}.json`, params).then((response) => {
-      console.log(response);
+      console.log(response.data);
+      setCurrentFriends([...currentFriends, response.data.friend_id]);
     });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(handleGetUser, [userInfo]);
+  useEffect(() => {
+    handleGetUser();
+    getAllFriendships();
+  }, []);
 
   return (
     <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full">
@@ -66,7 +89,7 @@ export function UserShow() {
                 />
                 <p className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{friendship.friend_name}</p>
                 <div className="w-24 h-24 mb-3">
-                  {!friendship.status ? (
+                  {!friendship.status && !currentFriends.includes(friendship.friend_id) ? (
                     <div>
                       <button
                         onClick={() => acceptFriendRequest(friendship.id)}
