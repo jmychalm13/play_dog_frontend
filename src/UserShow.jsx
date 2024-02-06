@@ -7,6 +7,7 @@ export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentFriends, setCurrentFriends] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [pendingFriends, setPendingFriends] = useState([]);
 
   const handleGetUser = () => {
