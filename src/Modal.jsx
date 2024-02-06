@@ -49,15 +49,6 @@ export function Modal(props) {
             </button>
           </div>
         </form>
-        {/* <div className="w-1/2 ml-4 bg-cover">
-          <img src={props.user.image_url} alt="" />
-        </div>
-        <div className="flex flex-col justify-between w-1/2 px-4 space-y-16">
-          <div>
-            <h1 className="mb-2 text-2xl font-bold leading-tight">{props.user.username}</h1>
-            <p className="text-sm tes"></p>
-          </div>
-        </div> */}
       </div>
     );
   }

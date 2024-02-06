@@ -12,8 +12,8 @@ export function LandingPage() {
     >
       {/* Text at the top with breathing room */}
       <div className="heading absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-text-neutral-100 text-center z-10 w-full">
-        <h1 className="text-6xl font-bold mb-4">PlayDog</h1>
-        <p className="text-2xl">Open up a world of fun for you and your pup</p>
+        <h1 className="text-neutral-100 text-6xl font-bold mb-4">PlayDog</h1>
+        <p className="text-neutral-100 text-2xl">Open up a world of fun for you and your pup</p>
         <div className="mt-8">
           {/* Add your buttons here */}
           <Link to="/login">
