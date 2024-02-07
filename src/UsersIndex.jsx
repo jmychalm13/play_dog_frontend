@@ -92,13 +92,13 @@ export function UsersIndex() {
                       />
                     </svg>
                   </button>
+                ) : pendingFriends.includes(user.id) ? (
+                  <p>Request Pending</p>
                 ) : (
-                  <p>Test</p>
+                  <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-stone-900 bg-white border border-stone-300 rounded-lg hover:bg-stone-100 focus:ring-4 focus:outline-none focus:ring-stone-200 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-700 dark:focus:ring-stone-700 ms-3">
+                    Message
+                  </button>
                 )}
-
-                <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-stone-900 bg-white border border-stone-300 rounded-lg hover:bg-stone-100 focus:ring-4 focus:outline-none focus:ring-stone-200 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-700 dark:focus:ring-stone-700 ms-3">
-                  Message
-                </button>
               </div>
             </div>
           </div>
