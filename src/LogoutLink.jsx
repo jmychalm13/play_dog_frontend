@@ -12,7 +12,7 @@ export function LogoutLink() {
 
   return (
     <Link
-      className="mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
+      className="mx-3 block rounded-lg px-3 py-2.5 text-base text-lg font-semibold leading-7 text-neutral-100 hover:bg-emerald-800"
       to="#"
       onClick={handleClick}
     >

@@ -3,6 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { LogoutLink } from "./LogoutLink";
+import "./Header.css";
 
 const navigation = [
   { name: "Playdates", to: "#" },
@@ -36,14 +37,14 @@ export function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <Link key={item.name} to={item.to} className="text-sm font-semibold leading-6 text-neutral-100">
+            <Link key={item.name} to={item.to} className="text-lg font-semibold leading-6 text-neutral-100">
               {item.name}
             </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {localStorage.getItem("jwt") === null ? (
-            <Link to="/login" className="text-sm font-semibold leading-6 text-neutral-100">
+            <Link to="/login" className="text-lg font-semibold leading-6 text-neutral-100">
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           ) : (

@@ -64,12 +64,9 @@ export function UserShow() {
 
   return (
     <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full">
-      <h1 className="text-3xl text-center">Profile</h1>
+      <h1 className="text-3xl text-center">{userInfo.name}</h1>
       <div className="flex justify-center">
         <div className="shadow-lg rounded-lg overflow-hidden w-1/4">
-          <h3 className="text-xl">
-            Username: <span className="text-large">{userInfo.name}</span>
-          </h3>
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
       </div>

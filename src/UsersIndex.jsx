@@ -8,8 +8,15 @@ export function UsersIndex() {
 
   const getAllUsers = () => {
     axios.get("http://localhost:3000/users.json").then((response) => {
-      setUsers(response.data);
-      console.log(response.data);
+      const currentUserId = +localStorage.getItem("userId");
+      const data = response.data;
+      const users = [];
+      data.forEach((user) => {
+        if (user.id !== currentUserId) {
+          users.push(user);
+        }
+      });
+      setUsers(users);
     });
   };
 
@@ -33,14 +40,12 @@ export function UsersIndex() {
       let friends = [];
       let pending = [];
       data.forEach((friend) => {
-        console.log(friend);
         if (friend.status) {
           friends.push(friend.friend_id);
         } else {
           pending.push(friend.friend_id);
         }
       });
-      console.log("current:", friends, "pending:", pending);
       setCurrentFriends(friends);
       setPendingFriends(pending);
     });
