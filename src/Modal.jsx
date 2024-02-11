@@ -19,14 +19,17 @@ export function Modal(props) {
   // eslint-disable-next-line react/prop-types
   if (props.show) {
     return (
-      <div className="rounded relative justify-center max-w-xl py-4 mx-auto bg-white shadow-2xl">
-        <span
-          onClick={props.onClose}
-          className="absolute top-0 right-0 block w-10 h-5 -mt-2 -mr-4 text-xs text-center text-gray-600 transform rotate-45 bg-white rounded shadow-md cursor-pointer hover:bg-gray-100"
+      <div>
+        <form
+          className="border rounded relative justify-center max-w-xl py-4 mx-auto bg-fuchsia-400 shadow-2xl modal-main"
+          onSubmit={handleSubmit}
         >
-          close
-        </span>
-        <form onSubmit={handleSubmit}>
+          <span
+            onClick={props.onClose}
+            className="absolute top-0 right-0 block w-10 h-5 -mt-2 -mr-4 text-xs text-center text-gray-600 transform rotate-45 bg-white rounded shadow-md cursor-pointer hover:bg-gray-100"
+          >
+            close
+          </span>
           <div className="relative z-0 w-full mb-5 group">
             <label htmlFor="image_url">Profile Image: </label>
             <input type="text" name="image_url" defaultValue={props.user.image_url} />

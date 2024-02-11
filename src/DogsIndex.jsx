@@ -24,7 +24,7 @@ export function DogsIndex() {
 
   return (
     <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-screen relative">
-      <h1 className="text-emerald-900 text-center text-5xl underline">Your Pets</h1>
+      <h1 className="text-emerald-900 text-center text-5xl underline">All Pets</h1>
       <div className="dogs">
         {dogs.map((dog) => (
           <div

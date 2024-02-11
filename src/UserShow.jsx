@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Modal } from "./Modal";
 import { EditUserModal } from "./EditUserModal";
+// import "./Modal.css";
 
 export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
@@ -71,7 +73,7 @@ export function UserShow() {
         </div>
       </div>
       <p className="my-10 text-2xl text-center underline">Friend Requests</p>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
         <div className="grid grid-cols-3 gap-4 w-full">
           {userInfo &&
             userInfo.friendships &&
@@ -138,12 +140,12 @@ export function UserShow() {
                   <h2 className="text-gray-800 text-lg font-semibold">{dog.age}</h2>
                 </div>
                 <div className="flex justify-center">
-                  <button
-                    type="button"
+                  <Link
+                    to={`/dogs/${dog.id}`}
                     className="text-white bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 shadow-lg shadow-emerald-500/50 dark:shadow-lg dark:shadow-emerald-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                   >
                     More Info
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -158,12 +160,14 @@ export function UserShow() {
           >
             Edit Profile
           </button>
-        ) : (
-          <div></div>
+        ) : null}
+        {isModalVisible && (
+          <div className="overlay">
+            <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
+              <EditUserModal closeModal={handleHideModal} />
+            </Modal>
+          </div>
         )}
-        <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
-          <EditUserModal closeModal={handleHideModal} />
-        </Modal>
       </div>
     </section>
   );
