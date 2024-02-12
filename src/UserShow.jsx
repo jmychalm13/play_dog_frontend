@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Modal } from "./Modal";
+import { Modal } from "./UserModal";
 import { EditUserModal } from "./EditUserModal";
 // import "./Modal.css";
 
@@ -15,7 +15,6 @@ export function UserShow() {
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
       setUserInfo(response.data);
-      console.log("user info: ", response.data);
     });
   };
 
@@ -37,7 +36,6 @@ export function UserShow() {
       let friends = [];
       let pending = [];
       data.forEach((friend) => {
-        console.log("friends:", friend);
         if (friend.status) {
           friends.push(friend.friend_id);
         } else {

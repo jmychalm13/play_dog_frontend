@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { DogModal } from "./DogModal";
 import "./DogShow.css";
 
 export function DogShow() {
   const [dogInfo, setDogInfo] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
   const { id } = useParams();
 
@@ -13,11 +15,18 @@ export function DogShow() {
     const userId = +localStorage.getItem("userId");
     axios.get(`http://localhost:3000/dogs/${id}.json`).then((response) => {
       setDogInfo(response.data);
-      console.log("dogInfo:", response.data);
       if (response.data.user_id === userId) {
         setIsLoggedIn(true);
       }
     });
+  };
+
+  const openEditModal = () => {
+    setIsEditModalVisible(true);
+  };
+
+  const handleHideEditModal = () => {
+    setIsEditModalVisible(false);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,10 +53,21 @@ export function DogShow() {
           </div>
         </div>
       </div>
-
-      <div className="bg-fuchsia-900 text-white p-2 rounded-lg shadow-lg border-fuchsia-900 buttons">
-        {isLoggedIn ? <button>Edit Pup</button> : <button>Schedule Playdate</button>}
-      </div>
+      {!isEditModalVisible ? (
+        <div className="bg-fuchsia-900 text-white p-2 rounded-lg shadow-lg border-fuchsia-900 buttons">
+          {isLoggedIn ? <button onClick={openEditModal}>Edit Pup</button> : <button>Schedule Playdate</button>}
+        </div>
+      ) : null}
+      {isEditModalVisible && (
+        <div className="overlay">
+          <DogModal
+            show={isEditModalVisible}
+            closeModal={handleHideEditModal}
+            onClose={handleHideEditModal}
+            dog={dogInfo}
+          ></DogModal>
+        </div>
+      )}
     </section>
   );
 }

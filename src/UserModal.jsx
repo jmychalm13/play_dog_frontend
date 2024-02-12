@@ -35,7 +35,7 @@ export function Modal(props) {
             <input type="text" name="image_url" defaultValue={props.user.image_url} />
           </div>
           <div className="relative z-0 w-full mb-5 group">
-            <label htmlFor="image_url">Username: </label>
+            <label htmlFor="name">Username: </label>
             <input type="text" name="name" defaultValue={props.user.name} />
           </div>
           <div className="button">

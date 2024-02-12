@@ -29,7 +29,6 @@ export function UsersIndex() {
       status: false,
     };
     axios.post("http://localhost:3000/friendships.json", params).then((response) => {
-      console.log(response);
       setPendingFriends([...pendingFriends, response.data.friend_id]);
     });
   };

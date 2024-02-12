@@ -15,7 +15,6 @@ export function DogsIndex() {
       })
       .then((response) => {
         setDogs(response.data);
-        console.log(response.data);
       });
   };
 
