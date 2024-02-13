@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./Modal.css";
 
 export function DogModal(props) {
-  const [behaviors, setBehaviors] = useState(props.dog.behaviors);
+  // const [behaviors, setBehaviors] = useState(props.dog.behaviors);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -11,16 +11,16 @@ export function DogModal(props) {
   };
 
   const handleBehaviorChange = (index, value) => {
-    const updatedBehaviors = [...behaviors];
-    updatedBehaviors[index].behavior = value;
-    setBehaviors(updatedBehaviors);
+    // const updatedBehaviors = [...behaviors];
+    // updatedBehaviors[index].behavior = value;
+    // setBehaviors(updatedBehaviors);
   };
 
   console.log(props.dog.behaviors);
 
-  useEffect(() => {
-    setBehaviors([props.dog.behaviors]);
-  }, [props.dog.behaviors]);
+  // useEffect(() => {
+  //   setBehaviors([props.dog.behaviors]);
+  // }, [props.dog.behaviors]);
 
   return (
     <div className="modal-main">
@@ -48,7 +48,7 @@ export function DogModal(props) {
         </div>
         <label htmlFor="behaviors">Behaviors:</label>
         {/* todo behaviors */}
-        {behaviors.map((behavior, index) => (
+        {props.dog.behaviors.map((behavior, index) => (
           <div key={index} className="relative z-0 w-full mb-5 group">
             <input
               type="text"
