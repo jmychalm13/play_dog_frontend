@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import "./Modal.css";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 export function DogModal(props) {
   // const [behaviors, setBehaviors] = useState(props.dog.behaviors);
@@ -13,14 +14,8 @@ export function DogModal(props) {
   const handleBehaviorChange = (index, value) => {
     // const updatedBehaviors = [...behaviors];
     // updatedBehaviors[index].behavior = value;
-    // setBehaviors(updatedBehaviors);
+    // // setBehaviors(updatedBehaviors);
   };
-
-  console.log(props.dog.behaviors);
-
-  // useEffect(() => {
-  //   setBehaviors([props.dog.behaviors]);
-  // }, [props.dog.behaviors]);
 
   return (
     <div className="modal-main">
@@ -55,6 +50,7 @@ export function DogModal(props) {
               value={behavior.behavior}
               onChange={(e) => handleBehaviorChange(index, e.target.value)}
             />
+            <TrashIcon className="h-6 w-6 text-blue-500" />
           </div>
         ))}
         <div className="button">
