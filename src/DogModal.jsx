@@ -5,7 +5,7 @@ import { TrashIcon, PencilSquareIcon, DocumentCheckIcon, XCircleIcon } from "@he
 import axios from "axios";
 
 export function DogModal(props) {
-  // const [behaviors, setBehaviors] = useState(props.dog.behaviors);
+  const [behaviors, setBehaviors] = useState(props.dog.behaviors);
   const [editedBehavior, setEditedBehavior] = useState("");
   const [editableIndex, setEditableIndex] = useState(null);
   const [newBehaviors, setNewBehaviors] = useState([]);
@@ -30,9 +30,9 @@ export function DogModal(props) {
   };
 
   const handleDelete = (index, behaviorId) => {
-    const updatedBehaviors = [...props.dog.behaviors];
     axios.delete(`http://localhost:3000/behaviors/${behaviorId}.json`).then((response) => {
       console.log(response);
+      setBehaviors(behaviors.filter((behavior) => behavior.id !== behaviorId));
     });
     // use updatedBehaviors to render updated behaviors - I think
   };
@@ -115,7 +115,7 @@ export function DogModal(props) {
           ))}
         </ul> */}
         <ul>
-          {props.dog.behaviors.map((behavior, index) => (
+          {behaviors.map((behavior, index) => (
             <li key={index} className="grid grid-cols-2">
               {editableIndex == null || editableIndex !== index ? (
                 // Non-edit mode: Render behavior text
