@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Modal.css";
 import { TrashIcon, PencilSquareIcon, DocumentCheckIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
@@ -8,6 +8,7 @@ export function DogModal(props) {
   const [behaviors, setBehaviors] = useState(props.dog.behaviors);
   const [editedBehavior, setEditedBehavior] = useState("");
   const [editableIndex, setEditableIndex] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [newBehaviors, setNewBehaviors] = useState([]);
 
   const handleSave = (index) => {
@@ -34,7 +35,6 @@ export function DogModal(props) {
       console.log(response);
       setBehaviors(behaviors.filter((behavior) => behavior.id !== behaviorId));
     });
-    // use updatedBehaviors to render updated behaviors - I think
   };
 
   const handleEdit = (index) => {
@@ -44,14 +44,6 @@ export function DogModal(props) {
   const handleInputChange = (e) => {
     setEditedBehavior(e.target.value);
   };
-
-  // const handleEditClick = (index) => {
-  //   setEditableItems((prevEditableItems) => {
-  //     const updatedEditedItems = [...prevEditableItems];
-  //     updatedEditedItems[index] = !updatedEditedItems[index];
-  //     return updatedEditedItems;
-  //   });
-  // };
 
   const handleCancelEdit = () => {
     setEditableIndex(null);

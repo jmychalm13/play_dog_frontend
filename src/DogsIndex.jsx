@@ -1,37 +1,61 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { DogModal } from "./DogModal";
 
 export function DogsIndex() {
   const [dogs, setDogs] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [dogInfo, setDogInfo] = useState({});
 
-  const jwt = localStorage.getItem("jwt");
+  const getCurrentUser = () => {
+    axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
+      setCurrentUser(response.data);
+      console.log("currentUser", response.data);
+    });
+  };
 
-  const getUserDogs = () => {
-    axios
-      .get("http://localhost:3000/dogs.json", {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      })
-      .then((response) => {
-        setDogs(response.data);
-      });
+  const getAllDogs = () => {
+    axios.get("http://localhost:3000/dogs.json").then((response) => {
+      setDogs(response.data);
+      console.log("allDogs", response.data);
+    });
+  };
+
+  const openEditModal = (dog) => {
+    setDogInfo(dog);
+    setIsEditModalVisible(true);
+  };
+
+  const handleHideEditModal = () => {
+    setIsEditModalVisible(false);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(getUserDogs, []);
+  useEffect(getAllDogs, []);
+  useEffect(getCurrentUser, []);
 
   return (
     <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-screen relative">
       <h1 className="text-emerald-900 text-center text-5xl underline">All Pets</h1>
+      {isEditModalVisible && (
+        <div className="overlay">
+          <DogModal
+            show={isEditModalVisible}
+            closeModal={handleHideEditModal}
+            onClose={handleHideEditModal}
+            dog={dogInfo}
+          ></DogModal>
+        </div>
+      )}
       <div className="dogs">
         {dogs.map((dog) => (
           <div
             key={dog.id}
-            className="mx-auto my-3 px-4 flex flex-col items-center bg-white border dark:border-emerald-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-emerald-100 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
+            className="mx-auto my-3 px-4 flex flex-col items-center bg-white border dark:border-emerald-200 rounded-lg shadow md:flex-col md:max-w-xl hover:bg-emerald-100 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
           >
             <img
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+              className="mt-6 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
               src={dog.image_url}
               alt=""
             />
@@ -45,6 +69,28 @@ export function DogsIndex() {
                 </div>
               ))}
             </div>
+            {dog.user_id !== currentUser.id ? (
+              <div className="buttons">
+                <div className="mt-4 md:mt-0 md:ml-4">
+                  <button
+                    type="button"
+                    className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  >
+                    Schedule Playdate
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4">
+                <button
+                  onClick={() => openEditModal(dog)}
+                  type="button"
+                  className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                >
+                  Edit Pet
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
