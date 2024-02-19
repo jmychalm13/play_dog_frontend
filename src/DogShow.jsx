@@ -42,7 +42,7 @@ export function DogShow() {
             <p>
               {dogInfo.name} is a {dogInfo.age} year old {dogInfo.breed}.
             </p>
-            <p>These are some of {dogInfo.name}&apos;s most common characteristics:</p>
+            <p>These are some of {dogInfo.name}&apos;s characteristics:</p>
             <div>
               <ul className="list-disc list-inside">
                 {dogInfo &&
