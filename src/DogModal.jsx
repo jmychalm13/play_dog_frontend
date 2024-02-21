@@ -30,8 +30,10 @@ export function DogModal(props) {
     formData.forEach((value, key) => {
       formObject[key] = value;
     });
-    // get new behaviors along with behaviors that were not edited or deleted to form object, then patch request
-    console.log(formObject);
+    // axios request to update other fields
+    axios.patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formObject).then((response) => {
+      console.log(response);
+    });
   };
 
   const handleDelete = (index, behaviorId) => {
@@ -71,7 +73,7 @@ export function DogModal(props) {
           <input type="text" name="image_url" defaultValue={props.dog.image_url} />
         </div>
         <div className="relative z-0 w-full mb-5 group">
-          <label htmlFor="name">Username: </label>
+          <label htmlFor="name">Name: </label>
           <input type="text" name="name" defaultValue={props.dog.name} />
         </div>
         <div className="relative z-0 w-full mb-5 group">
