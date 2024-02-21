@@ -6,16 +6,20 @@ import axios from "axios";
 
 export function DogModal(props) {
   const [behaviors, setBehaviors] = useState(props.dog.behaviors);
-  const [editedBehavior, setEditedBehavior] = useState("");
   const [editableIndex, setEditableIndex] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [newBehaviors, setNewBehaviors] = useState([]);
+  const [newBehavior, setNewBehavior] = useState("");
 
-  const handleSave = (index) => {
-    // other logic to make change
-    console.log(`Save changes for index ${index}: ${editedBehavior}`);
-    newBehaviors.push(editedBehavior);
+  const handleSave = (behavior) => {
+    behavior.behavior = newBehavior;
     setEditableIndex(null);
+    const params = {
+      behavior: newBehavior,
+    };
+    axios.patch(`http://localhost:3000/behaviors/${behavior.id}.json`, params).then((response) => {
+      console.log(response);
+    });
   };
 
   const handleSubmit = (event) => {
@@ -37,12 +41,13 @@ export function DogModal(props) {
     });
   };
 
-  const handleEdit = (index) => {
+  const handleEdit = (index, behavior) => {
     setEditableIndex(index);
+    setNewBehavior(behavior);
   };
 
-  const handleInputChange = (e) => {
-    setEditedBehavior(e.target.value);
+  const handleInputChange = (behavior) => {
+    setNewBehavior(behavior);
   };
 
   const handleCancelEdit = () => {
@@ -125,9 +130,14 @@ export function DogModal(props) {
               ) : (
                 // Edit mode: Render input field
                 <div className="grid grid-cols-2">
-                  <input type="text" className="m-1" value={editedBehavior} onChange={handleInputChange} />
+                  <input
+                    type="text"
+                    value={newBehavior}
+                    className="m-1"
+                    onChange={(event) => handleInputChange(event.target.value)}
+                  />
                   <div className="flex">
-                    <button onClick={() => handleSave(index)}>
+                    <button onClick={() => handleSave(behavior)}>
                       <DocumentCheckIcon className="h-6 w-6 text-blue-500" />
                     </button>
                     <button onClick={handleCancelEdit}>
