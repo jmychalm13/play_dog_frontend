@@ -7,8 +7,6 @@ import axios from "axios";
 export function DogModal(props) {
   const [behaviors, setBehaviors] = useState(props.dog.behaviors);
   const [editableIndex, setEditableIndex] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [newBehaviors, setNewBehaviors] = useState([]);
   const [newBehavior, setNewBehavior] = useState("");
 
   const handleSave = (behavior) => {
@@ -63,7 +61,7 @@ export function DogModal(props) {
         onSubmit={handleSubmit}
       >
         <span
-          onClick={props.onClose}
+          onClick={() => props.onClose({})}
           className="absolute top-0 right-0 block w-10 h-5 -mt-2 -mr-4 text-xs text-center text-gray-600 transform rotate-45 bg-white rounded shadow-md cursor-pointer hover:bg-gray-100"
         >
           close
@@ -81,38 +79,6 @@ export function DogModal(props) {
           <input type="text" name="breed" defaultValue={props.dog.breed} />
         </div>
         <label htmlFor="behaviors">Behaviors:</label>
-        {/* todo behaviors */}
-        {/* <ul>
-          {props.dog.behaviors.map((behavior, index) => (
-            <li key={index} className="grid grid-cols-2">
-              {!editableIndex || editableIndex !== index ? (
-                <>
-                  <div>{behavior.behavior}</div>
-                  <div className="flex">
-                    <button onClick={() => handleDelete(index)}>
-                      <TrashIcon className="h-6 w-6 text-blue-500" />
-                    </button>
-                    <button onClick={() => handleEdit(index)}>
-                      <PencilSquareIcon className="h-6 w-6 text-blue-500" />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div>
-                  <input
-                    type="text"
-                    className="m-1"
-                    value={behavior.behavior}
-                    onChange={(e) => {
-                      handleInputChange(index, e.target.value);
-                    }}
-                  />
-                  <button>Save</button>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul> */}
         <ul>
           {behaviors.map((behavior, index) => (
             <li key={index} className="grid grid-cols-2">

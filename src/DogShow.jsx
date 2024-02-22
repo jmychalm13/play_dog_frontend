@@ -26,6 +26,9 @@ export function DogShow() {
   };
 
   const handleHideEditModal = () => {
+    if (dogInfo) {
+      getDogInfo();
+    }
     setIsEditModalVisible(false);
   };
 
