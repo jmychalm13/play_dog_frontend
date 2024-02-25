@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Modal.css";
 import { TrashIcon, PencilSquareIcon, DocumentCheckIcon, XCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
@@ -56,7 +56,7 @@ export function DogModal(props) {
     setEditableIndex(null);
   };
 
-  const handleAddBehavior = () => {
+  const setIsInputVisible = () => {
     setAddBehavior(true);
   };
 
@@ -75,6 +75,18 @@ export function DogModal(props) {
         console.log(response);
       });
   };
+
+  useEffect(() => {
+    if (addBehavior) {
+      const inputElement = document.getElementById("newBehaviorInput");
+      if (inputElement) {
+        console.log("inputRef found");
+        inputElement.focus();
+      } else {
+        console.log("input ref is still undefined");
+      }
+    }
+  }, [addBehavior]);
 
   return (
     <div className="modal-main">
@@ -142,7 +154,7 @@ export function DogModal(props) {
             <li className="grid grid-cols-2">
               <div>Add Behavior</div>
               <div className="">
-                <button type="button" onClick={handleAddBehavior}>
+                <button type="button" onClick={setIsInputVisible}>
                   <PlusIcon className="h-6 w-6 text-blue-500" />
                 </button>
               </div>
@@ -150,6 +162,7 @@ export function DogModal(props) {
           ) : (
             <li className="grid grid-cols-2">
               <input
+                id="newBehaviorInput"
                 type="text"
                 name="behavior"
                 className="m-1"
