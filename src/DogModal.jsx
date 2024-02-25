@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./Modal.css";
-import { TrashIcon, PencilSquareIcon, DocumentCheckIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, PencilSquareIcon, DocumentCheckIcon, XCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 
 export function DogModal(props) {
   const [behaviors, setBehaviors] = useState(props.dog.behaviors);
   const [editableIndex, setEditableIndex] = useState(null);
   const [newBehavior, setNewBehavior] = useState("");
+  const [addBehavior, setAddBehavior] = useState(false);
+  const [additionalBehavior, setAdditionalBehavior] = useState("");
 
   const handleSave = (behavior) => {
     behavior.behavior = newBehavior;
@@ -30,7 +32,7 @@ export function DogModal(props) {
     });
     // axios request to update other fields
     axios.patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formObject).then((response) => {
-      console.log(response);
+      console.log("submit", response);
     });
   };
 
@@ -52,6 +54,26 @@ export function DogModal(props) {
 
   const handleCancelEdit = () => {
     setEditableIndex(null);
+  };
+
+  const handleAddBehavior = () => {
+    setAddBehavior(true);
+  };
+
+  const handleCancelAddBehavior = () => {
+    setAddBehavior(false);
+  };
+
+  const handleAddBehaviorInput = (behavior) => {
+    setAdditionalBehavior(behavior);
+  };
+
+  const handleAddBehaviorToDatabase = () => {
+    axios
+      .post("http://localhost:3000/behaviors.json", { behavior: additionalBehavior, dog_id: props.dog.id })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
@@ -87,7 +109,7 @@ export function DogModal(props) {
                 <>
                   <div>{behavior.behavior}</div>
                   <div className="flex">
-                    <button onClick={() => handleDelete(index, behavior.id)}>
+                    <button type="button" onClick={() => handleDelete(index, behavior.id)}>
                       <TrashIcon className="h-6 w-6 text-blue-500" />
                     </button>
                     <button onClick={() => handleEdit(index, behavior.behavior)}>
@@ -105,10 +127,10 @@ export function DogModal(props) {
                     onChange={(event) => handleInputChange(event.target.value)}
                   />
                   <div className="flex">
-                    <button onClick={() => handleSave(behavior)}>
+                    <button type="button" onClick={() => handleSave(behavior)}>
                       <DocumentCheckIcon className="h-6 w-6 text-blue-500" />
                     </button>
-                    <button onClick={handleCancelEdit}>
+                    <button type="button" onClick={handleCancelEdit}>
                       <XCircleIcon className="h-6 w-6 text-blue-500" />
                     </button>
                   </div>
@@ -116,6 +138,35 @@ export function DogModal(props) {
               )}
             </li>
           ))}
+          {!addBehavior ? (
+            <li className="grid grid-cols-2">
+              <div>Add Behavior</div>
+              <div className="">
+                <button type="button" onClick={handleAddBehavior}>
+                  <PlusIcon className="h-6 w-6 text-blue-500" />
+                </button>
+              </div>
+            </li>
+          ) : (
+            <li className="grid grid-cols-2">
+              <input
+                type="text"
+                name="behavior"
+                className="m-1"
+                onChange={(event) => handleAddBehaviorInput(event.target.value)}
+              />
+              <div className="flex">
+                <div>
+                  <button type="button" onClick={handleAddBehaviorToDatabase}>
+                    <DocumentCheckIcon className="h-6 w-6 text-blue-500" />
+                  </button>
+                  <button type="button" onClick={handleCancelAddBehavior}>
+                    <XCircleIcon className="h-6 w-6 text-blue-500" />
+                  </button>
+                </div>
+              </div>
+            </li>
+          )}
         </ul>
         <div className="button">
           <button
