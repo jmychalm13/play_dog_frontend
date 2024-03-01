@@ -69,10 +69,23 @@ export function DogModal(props) {
   };
 
   const handleAddBehaviorToDatabase = () => {
+    console.log("behaviors before update:", behaviors);
+    console.log(additionalBehavior);
+    const params = {
+      behavior: additionalBehavior,
+      dog_id: props.dog.id,
+    };
     axios
-      .post("http://localhost:3000/behaviors.json", { behavior: additionalBehavior, dog_id: props.dog.id })
+      .post("http://localhost:3000/behaviors.json", params)
       .then((response) => {
-        console.log(response);
+        console.log("response", response);
+        setBehaviors([...behaviors, response.data]);
+        setAddBehavior(false);
+
+        console.log("behaviors after update:", behaviors);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -124,7 +137,7 @@ export function DogModal(props) {
                     <button type="button" onClick={() => handleDelete(index, behavior.id)}>
                       <TrashIcon className="h-6 w-6 text-blue-500" />
                     </button>
-                    <button onClick={() => handleEdit(index, behavior.behavior)}>
+                    <button type="button" onClick={() => handleEdit(index, behavior.behavior)}>
                       <PencilSquareIcon className="h-6 w-6 text-blue-500" />
                     </button>
                   </div>
