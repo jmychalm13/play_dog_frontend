@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { DogModal } from "./DogModal";
+import { Link } from "react-router-dom";
 
 export function DogsIndex() {
   const [dogs, setDogs] = useState([]);
@@ -49,6 +50,18 @@ export function DogsIndex() {
         </div>
       )}
       <div className="dogs">
+        <div className="relative">
+          <div className="absolute right-5 top-0">
+            <Link to="/profile">
+              <button
+                type="button"
+                className="border border-emerald-900 rounded-lg p-2 shadow-lg hover:bg-gray-300 bg-gray-200"
+              >
+                Add Pet
+              </button>
+            </Link>
+          </div>
+        </div>
         {dogs.map((dog) => (
           <div
             key={dog.id}
