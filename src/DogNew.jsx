@@ -1,6 +1,9 @@
-import { useHref } from "react-router-dom";
-
 export function DogNew() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("triggered");
+  };
+
   return (
     <div className="relative h-screen">
       <div
@@ -10,9 +13,47 @@ export function DogNew() {
         }}
       ></div>
       <div className="absolute inset-0 bg-gray-900/40"></div>
-      <div className="z-10 relative w-1/2 flex items-center justify-center text-white ml-auto py-5">
-        <h1 className="text-3xl font-bold mb-4">Add Pet</h1>
-        <form action=""></form>
+      <div className="py-12 z-10 relative w-1/2 flex items-center justify-center text-white ml-auto">
+        <form onSubmit={handleSubmit} className="border-emerald-800 shadow-xl p-12 rounded-lg border space-y-4">
+          <h1 className="text-3xl font-bold mb-4 text-center">Add Pet</h1>
+          <div>
+            <input
+              type="text"
+              name="name"
+              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              placeholder="Enter pet name"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="breed"
+              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              placeholder="Enter pet's breed"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              name="age"
+              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              placeholder="Enter pet's age"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="image_url"
+              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              placeholder="Upload Pic"
+            />
+          </div>
+          <div className="text-center">
+            <button type="submit" className="bg-emerald-800 px-2 rounded-md border border-black">
+              Add
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ export function DogsIndex() {
       <div className="dogs">
         <div className="relative">
           <div className="absolute right-5 top-0">
-            <Link to="/profile">
+            <Link to="/dogs/new">
               <button
                 type="button"
                 className="border border-emerald-900 rounded-lg p-2 shadow-lg hover:bg-gray-300 bg-gray-200"
