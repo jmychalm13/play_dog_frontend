@@ -3,20 +3,23 @@ import axios from "axios";
 export function DogNew() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const currentUser = +localStorage.getItem("userId");
-    console.log(currentUser);
-    const params = new FormData(event.target);
-    params.append("user_id", currentUser);
-    console.log(params);
-    axios
-      .post("http://localhost:3000/dogs.json", params)
-      .then((response) => {
-        console.log(response.data);
-        event.target.reset();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (event.target.checkValidity()) {
+      const currentUser = +localStorage.getItem("userId");
+      console.log(currentUser);
+      const params = new FormData(event.target);
+      params.append("user_id", currentUser);
+      console.log(params);
+      axios
+        .post("http://localhost:3000/dogs.json", params)
+        .then((response) => {
+          console.log(response.data);
+          event.target.reset();
+          window.location.href = "/dogs";
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -37,6 +40,7 @@ export function DogNew() {
               name="name"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Enter pet name"
+              required
             />
           </div>
           <div>
@@ -45,6 +49,7 @@ export function DogNew() {
               name="breed"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Enter pet's breed"
+              required
             />
           </div>
           <div>
@@ -53,6 +58,7 @@ export function DogNew() {
               name="age"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Enter pet's age"
+              required
             />
           </div>
           <div>
@@ -61,6 +67,7 @@ export function DogNew() {
               name="image_url"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Upload Pic"
+              required
             />
           </div>
           <div className="text-center">
