@@ -1,7 +1,22 @@
+import axios from "axios";
+
 export function DogNew() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("triggered");
+    const currentUser = +localStorage.getItem("userId");
+    console.log(currentUser);
+    const params = new FormData(event.target);
+    params.append("user_id", currentUser);
+    console.log(params);
+    axios
+      .post("http://localhost:3000/dogs.json", params)
+      .then((response) => {
+        console.log(response.data);
+        event.target.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

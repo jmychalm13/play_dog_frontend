@@ -12,14 +12,12 @@ export function DogsIndex() {
   const getCurrentUser = () => {
     axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
       setCurrentUser(response.data);
-      console.log("currentUser", response.data);
     });
   };
 
   const getAllDogs = () => {
     axios.get("http://localhost:3000/dogs.json").then((response) => {
       setDogs(response.data);
-      console.log("allDogs", response.data);
     });
   };
 
