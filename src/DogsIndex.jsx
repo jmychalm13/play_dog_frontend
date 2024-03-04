@@ -21,6 +21,13 @@ export function DogsIndex() {
     });
   };
 
+  const handleRemoveDog = (dog) => {
+    const id = +dog.id;
+    axios.delete(`http://localhost:3000/dogs/${id}.json`).then((response) => {
+      console.log(response);
+    });
+  };
+
   const openEditModal = (dog) => {
     setDogInfo(dog);
     setIsEditModalVisible(true);
@@ -99,6 +106,13 @@ export function DogsIndex() {
                   className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
                 >
                   Edit Pet
+                </button>
+                <button
+                  type="button"
+                  className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  onClick={() => handleRemoveDog(dog)}
+                >
+                  Remove
                 </button>
               </div>
             )}
