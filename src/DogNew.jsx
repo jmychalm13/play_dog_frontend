@@ -1,20 +1,44 @@
 import axios from "axios";
+import { useState } from "react";
 
 export function DogNew() {
+  const [dogData, setDogData] = useState({});
+  const [behaviorData, setBehaviorData] = useState({
+    behavior1: "",
+  });
+
+  const handleBehaviorInputChange = (event) => {
+    setBehaviorData({ ...behaviorData, [event.target.name]: event.target.value });
+  };
+
+  const handleAddBehavior = (behaviorData) => {
+    const params = {
+      dog_id: dogData.id,
+      behavior: behaviorData.behavior1,
+    };
+    if (params.dog_id) {
+      axios.post("http://localhost:3000/behaviors.json", params).then((response) => {
+        console.log("behaviorResponse", response);
+      });
+    } else {
+      console.log("no dog id");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (event.target.checkValidity()) {
       const currentUser = +localStorage.getItem("userId");
-      console.log(currentUser);
       const params = new FormData(event.target);
       params.append("user_id", currentUser);
-      console.log(params);
       axios
         .post("http://localhost:3000/dogs.json", params)
         .then((response) => {
           console.log(response.data);
-          event.target.reset();
-          window.location.href = "/dogs";
+          // event.target.reset();
+          // window.location.href = "/dogs";
+          setDogData(response.data);
+          handleAddBehavior(behaviorData);
         })
         .catch((error) => {
           console.log(error);
@@ -67,6 +91,17 @@ export function DogNew() {
               name="image_url"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Upload Pic"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="behavior1"
+              onChange={handleBehaviorInputChange}
+              value={behaviorData.behavior1}
+              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              placeholder="Behavior #1"
               required
             />
           </div>
