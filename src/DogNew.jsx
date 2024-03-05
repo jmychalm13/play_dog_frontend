@@ -2,43 +2,55 @@ import axios from "axios";
 import { useState } from "react";
 
 export function DogNew() {
-  const [dogData, setDogData] = useState({});
-  const [behaviorData, setBehaviorData] = useState({
-    behavior1: "",
+  const [dogData, setDogData] = useState({
+    breed: "",
+    name: "",
+    age: 0,
+    image_url: "",
+    behaviors: [],
   });
 
-  const handleBehaviorInputChange = (event) => {
-    setBehaviorData({ ...behaviorData, [event.target.name]: event.target.value });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setDogData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleAddBehavior = (behaviorData) => {
-    const params = {
-      dog_id: dogData.id,
-      behavior: behaviorData.behavior1,
-    };
-    if (params.dog_id) {
-      axios.post("http://localhost:3000/behaviors.json", params).then((response) => {
-        console.log("behaviorResponse", response);
-      });
-    } else {
-      console.log("no dog id");
-    }
+  const handleBehaviorInputChange = (event) => {
+    const behaviors = event.target.value.split(",").map((behavior) => behavior.trim());
+    setDogData({ ...dogData, behaviors });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const currentUserId = +localStorage.getItem("userId");
+    let responseId;
     if (event.target.checkValidity()) {
-      const currentUser = +localStorage.getItem("userId");
-      const params = new FormData(event.target);
-      params.append("user_id", currentUser);
       axios
-        .post("http://localhost:3000/dogs.json", params)
+        .post("http://localhost:3000/dogs.json", {
+          user_id: currentUserId,
+          name: dogData.name,
+          breed: dogData.breed,
+          age: dogData.age,
+          image_url: dogData.image_url,
+        })
         .then((response) => {
-          console.log(response.data);
-          // event.target.reset();
-          // window.location.href = "/dogs";
-          setDogData(response.data);
-          handleAddBehavior(behaviorData);
+          responseId = response.data.id;
+          dogData.behaviors.map((newBehavior) => {
+            axios
+              .post("http://localhost:3000/behaviors.json", {
+                dog_id: responseId,
+                behavior: newBehavior,
+              })
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -63,6 +75,8 @@ export function DogNew() {
               type="text"
               name="name"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              value={dogData.name}
+              onChange={handleInputChange}
               placeholder="Enter pet name"
               required
             />
@@ -72,6 +86,8 @@ export function DogNew() {
               type="text"
               name="breed"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              value={dogData.breed}
+              onChange={handleInputChange}
               placeholder="Enter pet's breed"
               required
             />
@@ -81,6 +97,8 @@ export function DogNew() {
               type="number"
               name="age"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              value={dogData.age}
+              onChange={handleInputChange}
               placeholder="Enter pet's age"
               required
             />
@@ -90,6 +108,8 @@ export function DogNew() {
               type="text"
               name="image_url"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              value={dogData.image_url}
+              onChange={handleInputChange}
               placeholder="Upload Pic"
               required
             />
@@ -97,12 +117,10 @@ export function DogNew() {
           <div>
             <input
               type="text"
-              name="behavior1"
               onChange={handleBehaviorInputChange}
-              value={behaviorData.behavior1}
+              // value={behavior}
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
-              placeholder="Behavior #1"
-              required
+              placeholder="Behaviors"
             />
           </div>
           <div className="text-center">
