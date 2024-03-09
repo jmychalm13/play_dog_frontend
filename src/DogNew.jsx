@@ -55,6 +55,8 @@ export function DogNew() {
         .catch((error) => {
           console.log(error);
         });
+      event.target.reset();
+      window.location.href = "/dogs";
     }
   };
 

@@ -35,6 +35,7 @@ export function DogsIndex() {
 
   const handleHideEditModal = () => {
     setIsEditModalVisible(false);
+    getAllDogs();
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
