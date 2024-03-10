@@ -16,8 +16,6 @@ export function UserShow() {
   const [pendingFriends, setPendingFriends] = useState([]);
   const [currentUser, setCurrentUser] = useState(+localStorage.getItem("userId"));
 
-  console.log(currentUser);
-
   const { id } = useParams();
 
   const handleGetUser = () => {
@@ -36,6 +34,7 @@ export function UserShow() {
   const onUpdateUser = (id, formData) => {
     axios.patch(`http://localhost:3000/users/${id}.json`, formData).then((response) => {
       console.log(response);
+      handleGetUser();
     });
   };
 
