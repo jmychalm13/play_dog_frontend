@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,12 +14,16 @@ export function UserShow() {
   const [currentFriends, setCurrentFriends] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [pendingFriends, setPendingFriends] = useState([]);
+  const [currentUser, setCurrentUser] = useState(+localStorage.getItem("userId"));
+
+  console.log(currentUser);
 
   const { id } = useParams();
 
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${id}.json`).then((response) => {
       setUserInfo(response.data);
+      console.log(response.data);
     });
   };
 
@@ -64,6 +69,7 @@ export function UserShow() {
   useEffect(() => {
     handleGetUser();
     getAllFriendships();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -141,20 +147,24 @@ export function UserShow() {
           ))}
       </div>
       <div className="w-full flex justify-center">
-        {!isModalVisible ? (
-          <button
-            type="button"
-            className="my-12 text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={openModal}
-          >
-            Edit Profile
-          </button>
-        ) : null}
-        {isModalVisible && (
-          <div className="overlay">
-            <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
-              <EditUserModal closeModal={handleHideModal} />
-            </Modal>
+        {currentUser === userInfo.id && (
+          <div>
+            {!isModalVisible ? (
+              <button
+                type="button"
+                className="my-12 text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                onClick={openModal}
+              >
+                Edit Profile
+              </button>
+            ) : null}
+            {isModalVisible && (
+              <div className="overlay">
+                <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
+                  <EditUserModal closeModal={handleHideModal} />
+                </Modal>
+              </div>
+            )}
           </div>
         )}
       </div>
