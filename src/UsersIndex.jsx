@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 export function UsersIndex() {
   const [users, setUsers] = useState([]);
@@ -67,7 +68,16 @@ export function UsersIndex() {
           >
             <div className="text-center max-w-screen-md">
               <img src={user.image_url} alt="profile pic" className="mx-auto w-24 h-24 mb-3 rounded-full shadow-lg" />
-              <h5 className="mb-1 text-2xl font-medium text-gray-900 dark:text-neutral-100">{user.name}</h5>
+              {currentFriends.includes(user.id) ? (
+                <Link
+                  to={`/users/${user.id}`}
+                  className="mb-1 text-2xl font-medium text-gray-900 dark:text-neutral-100"
+                >
+                  {user.name}
+                </Link>
+              ) : (
+                <h5 className="mb-1 text-2xl font-medium text-gray-900 dark:text-neutral-100">{user.name}</h5>
+              )}
               <h5 className="text-3xl text-neutral-100 underline">Pets</h5>
               {user.dogs.map((dog) => (
                 <div key={dog.id} className="text-neutral-100">

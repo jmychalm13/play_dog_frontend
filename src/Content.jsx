@@ -17,7 +17,7 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dogs" element={<DogsIndex />} />
-        <Route path="/profile" element={<UserShow />} />
+        <Route path="/users/:id" element={<UserShow />} />
         <Route path="/dogs/:id" element={<DogShow />} />
         <Route path="/dogs/new" element={<DogNew />} />
       </Routes>

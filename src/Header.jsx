@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import { LogoutLink } from "./LogoutLink";
 import "./Header.css";
 
+const id = localStorage.getItem("userId");
+
 const navigation = [
   { name: "Playdates", to: "#" },
   { name: "Friends", to: "#" },
-  { name: "Profile", to: "/profile" },
+  { name: "Profile", to: `users/${id}` },
   { name: "Pets", to: "/dogs" },
+  { name: "Users", to: "/users" },
 ];
 
 export function Header() {

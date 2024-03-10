@@ -22,7 +22,7 @@ export function Login() {
         localStorage.setItem("userId", response.data.user_id);
         event.target.reset();
         // redirect - interpolate with user_id
-        window.location.href = `/profile`;
+        window.location.href = "#";
       })
       .catch((error) => {
         console.log(error.response);

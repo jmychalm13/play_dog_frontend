@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Modal } from "./UserModal";
 import { EditUserModal } from "./EditUserModal";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { useParams } from "react-router-dom";
 // import "./Modal.css";
 
 export function UserShow() {
@@ -13,8 +14,10 @@ export function UserShow() {
   // eslint-disable-next-line no-unused-vars
   const [pendingFriends, setPendingFriends] = useState([]);
 
+  const { id } = useParams();
+
   const handleGetUser = () => {
-    axios.get(`http://localhost:3000/users/${localStorage.getItem("userId")}.json`).then((response) => {
+    axios.get(`http://localhost:3000/users/${id}.json`).then((response) => {
       setUserInfo(response.data);
     });
   };
