@@ -1,3 +1,5 @@
+import { Button } from "flowbite-react";
+
 export function PlaydateNew() {
   return (
     <div className="min-h-screen bg-neutral-300 py-6 flex flex-col justify-center sm:py-12">
@@ -18,6 +20,7 @@ export function PlaydateNew() {
               <button className="shadow bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Schedule Fun!
               </button>
+              <Button>Click Me!</Button>
             </div>
           </form>
         </div>
