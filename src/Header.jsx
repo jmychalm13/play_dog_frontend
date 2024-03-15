@@ -8,7 +8,7 @@ import "./Header.css";
 const id = localStorage.getItem("userId");
 
 const navigation = [
-  { name: "Playdates", to: "#" },
+  { name: "Playdates", to: "/playdates/new" },
   { name: "Friends", to: "#" },
   { name: "Profile", to: `users/${id}` },
   { name: "Pets", to: "/dogs" },
