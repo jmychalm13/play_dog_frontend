@@ -1,22 +1,4 @@
-import { Dropdown } from "flowbite-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDog, faMagnet } from "@fortawesome/free-solid-svg-icons";
-
 export function PlaydateNew() {
-  const [currentUserDogs, setCurrentUserDogs] = useState([]);
-
-  const getCurrentUserDogs = () => {
-    const currentUserId = +localStorage.getItem("userId");
-    axios.get(`http://localhost:3000/users/${currentUserId}.json`).then((response) => {
-      setCurrentUserDogs(response.data.dogs);
-      console.log(response.data.dogs);
-    });
-  };
-
-  useEffect(getCurrentUserDogs, []);
-
   return (
     <div className="min-h-screen bg-neutral-300 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -32,16 +14,6 @@ export function PlaydateNew() {
               name="test field"
               className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
-            <div id="dog1Dropdown" className="flex justify-between">
-              <Dropdown label={<FontAwesomeIcon icon={faDog} />} dismissOnClick={false}>
-                {currentUserDogs.map((dog) => (
-                  <Dropdown.Item key={dog.id}>{dog.name}</Dropdown.Item>
-                ))}
-              </Dropdown>
-            </div>
-            <p className="text-xl">
-              <FontAwesomeIcon icon={faMagnet} />
-            </p>
           </form>
         </div>
       </div>
