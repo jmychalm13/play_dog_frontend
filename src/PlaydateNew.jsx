@@ -7,18 +7,29 @@ export function PlaydateNew() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [userDogs, setUserDogs] = useState([]);
 
+  const friendDogIds = [];
   const getUserDogs = () => {
     const currentUser = +localStorage.getItem("userId");
     axios.get(`http://localhost:3000/users/${currentUser}.json`).then((response) => {
       setUserDogs(response.data.dogs);
+      response.data.friendships.forEach((friendship) => {
+        friendDogIds.push(friendship.friend_id);
+      });
     });
   };
 
-  // const options = [
-  //   { value: "option1", label: "Option 1" },
-  //   { value: "option2", label: "Option 2" },
-  //   { value: "option3", label: "Option 3" },
-  // ];
+  const getFriendsDogs = () => {
+    const friendDogsArray = [];
+    axios.get("http://localhost:3000/dogs.json").then((response) => {
+      console.log("friendDogIds:", friendDogIds);
+      response.data.forEach((dog) => {
+        if (friendDogIds.includes(dog.user_id)) {
+          friendDogsArray.push(dog);
+        }
+      });
+    });
+    console.log("friendDogsArray:", friendDogsArray);
+  };
 
   const handleSelect = (option) => {
     setSelectedOption(option);
@@ -26,6 +37,7 @@ export function PlaydateNew() {
   };
 
   useEffect(getUserDogs, []);
+  useEffect(getFriendsDogs, []);
 
   return (
     <div className="min-h-screen bg-neutral-300 py-6 flex flex-col justify-center sm:py-12">
@@ -44,6 +56,13 @@ export function PlaydateNew() {
             />
             <div>
               <h1>Select your pet:</h1>
+              <BulletSelectList options={userDogs} onSelect={handleSelect} />
+            </div>
+            <div>
+              <p>Is going on a date with...</p>
+            </div>
+            <div>
+              <h1>Select your friend&apos;s dog</h1>
               <BulletSelectList options={userDogs} onSelect={handleSelect} />
             </div>
           </form>
