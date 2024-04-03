@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { handleLoginBackground } from "./JS/utils";
+import { useState } from "react";
 
 const jwt = localStorage.getItem("jwt");
 if (jwt) {
@@ -31,13 +30,14 @@ export function Login() {
       });
   };
 
-  useEffect(handleLoginBackground, []);
-
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div
+      id="background"
+      className="min-h-screen bg-gradient-to-t from-gray-600 to-gray-300 py-6 flex flex-col justify-center sm:py-12"
+    >
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-tr from-emerald-800 to-gray-400 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+        <div className="relative px-4 py-10 bg-gray-300 shadow-lg sm:rounded-3xl sm:p-20">
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <div>
               <h1 className="text-2xl font-semibold">Login</h1>
@@ -50,7 +50,7 @@ export function Login() {
                     id="email"
                     name="email"
                     type="text"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    className="rounded-lg peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-emerald-600"
                     placeholder="Email address"
                   />
                   <label
@@ -66,7 +66,7 @@ export function Login() {
                     id="password"
                     name="password"
                     type="password"
-                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                    className="rounded-lg peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-emerald-600"
                     placeholder="Password"
                   />
                   <label
