@@ -72,7 +72,7 @@ export function UserShow() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full">
+    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full p-5">
       <h1 className="text-3xl text-center">{userInfo.name}</h1>
       <div className="flex justify-center">
         <div className="shadow-lg rounded-lg overflow-hidden w-1/4">
@@ -85,10 +85,7 @@ export function UserShow() {
           {userInfo &&
             userInfo.friendships &&
             userInfo.friendships.map((friendship) => (
-              <div
-                key={friendship.id}
-                className="request-card border rounded-lg shadow-lg border-emerald-900 bg-neutral-400 flex flex-col items-center pb-10"
-              >
+              <div key={friendship.id} className="request-card">
                 <img
                   className="w-24 h-24 mb-3 rounded-full shadow-lg"
                   src={friendship.friend_image}
@@ -98,11 +95,7 @@ export function UserShow() {
                 <div className="w-24 h-24 mb-3">
                   {!friendship.status && !currentFriends.includes(friendship.friend_id) ? (
                     <div>
-                      <button
-                        onClick={() => acceptFriendRequest(friendship.id)}
-                        type="button"
-                        className="text-white bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 shadow-lg shadow-emerald-500/50 dark:shadow-lg dark:shadow-emerald-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                      >
+                      <button onClick={() => acceptFriendRequest(friendship.id)} type="button" className="friend-btn">
                         Accept Request
                       </button>
                     </div>
@@ -134,10 +127,7 @@ export function UserShow() {
                   <h2 className="text-gray-800 text-lg font-semibold">{dog.age}</h2>
                 </div>
                 <div className="flex justify-center">
-                  <Link
-                    to={`/dogs/${dog.id}`}
-                    className="text-white bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 shadow-lg shadow-emerald-500/50 dark:shadow-lg dark:shadow-emerald-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  >
+                  <Link to={`/dogs/${dog.id}`} className="friend-btn">
                     More Info
                   </Link>
                 </div>
@@ -149,11 +139,7 @@ export function UserShow() {
         {currentUser === userInfo.id ? (
           <div>
             {!isModalVisible ? (
-              <button
-                type="button"
-                className="my-12 text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                onClick={openModal}
-              >
+              <button type="button" className="modal-btn" onClick={openModal}>
                 Edit Profile
               </button>
             ) : null}
@@ -167,10 +153,7 @@ export function UserShow() {
           </div>
         ) : (
           <div>
-            <button
-              type="button"
-              className="my-12 text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            >
+            <button type="button" className="modal-btn">
               <Link to="/playdates/new">Schedule Playdate</Link>
             </button>
           </div>
