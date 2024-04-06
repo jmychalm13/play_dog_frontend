@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./Modal.css";
+import { Link } from "react-router-dom";
 
 export function Modal(props) {
   const handleSubmit = (event) => {
@@ -39,8 +40,11 @@ export function Modal(props) {
             <input type="text" name="name" defaultValue={props.user.name} />
           </div>
           <div className="button">
-            <button className="border bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
-              Add Pet
+            <button
+              type="button"
+              className="border bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+            >
+              <Link to="/dogs/new">Add Pet</Link>
             </button>
           </div>
           <div className="button">
