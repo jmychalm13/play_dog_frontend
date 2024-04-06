@@ -58,7 +58,7 @@ export function UsersIndex() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-gray-300 to-green-800">
+    <section className="bg-gradient-to-b from-gray-300 to-green-800 p-5">
       <h1 className="text-6xl text-center">Users</h1>
       <div className="cards grid grid-cols-3 gap-4">
         {users.map((user) => (
@@ -95,7 +95,9 @@ export function UsersIndex() {
                     <HeartIcon className="w-6 h-6 text-neutral-200" />
                   </button>
                 ) : pendingFriends.includes(user.id) ? (
-                  <p>Request Pending</p>
+                  <div className="border p-4 border-stone-800 shadow-lg rounded-lg bg-neutral-200">
+                    <p>Request Pending</p>
+                  </div>
                 ) : (
                   <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-stone-900 bg-white border border-stone-300 rounded-lg hover:bg-stone-100 focus:ring-4 focus:outline-none focus:ring-stone-200 dark:bg-stone-800 dark:text-white dark:border-stone-600 dark:hover:bg-stone-700 dark:hover:border-stone-700 dark:focus:ring-stone-700 ms-3">
                     Message

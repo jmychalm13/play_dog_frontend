@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Modal } from "./UserModal";
 import { EditUserModal } from "./EditUserModal";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/solid";
 import { useParams } from "react-router-dom";
 // import "./Modal.css";
 
@@ -72,14 +72,14 @@ export function UserShow() {
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-full p-5">
-      <h1 className="text-3xl text-center">{userInfo.name}</h1>
+    <section className="bg-gradient-to-b from-zinc-800 to-green-800 bg-cover bg-center h-full p-5 text-white">
+      <h1 className="profile-heading-username text-3xl text-center">{userInfo.name}</h1>
       <div className="flex justify-center">
         <div className="shadow-lg rounded-lg overflow-hidden w-1/4">
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
       </div>
-      <p className="my-10 text-2xl text-center underline">Friend Requests</p>
+      <p className="my-10 text-2xl text-center profile-heading">Friend Requests</p>
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-3 gap-4 w-full">
           {userInfo &&
@@ -100,8 +100,8 @@ export function UserShow() {
                       </button>
                     </div>
                   ) : (
-                    <div className="border rounded-lg border-emerald-900 text-emerald-900 flex items-center">
-                      <p className="flex items-center">
+                    <div className="border rounded-lg border-emerald-900 text-emerald-900 flex items-center justify-center">
+                      <p className="flex items-center text-center">
                         Friends
                         <HeartIcon className="w-6 h-6 text-emerald-900" />
                       </p>
@@ -113,7 +113,7 @@ export function UserShow() {
         </div>
       </div>
       <div className="my-12">
-        <h2 className="text-center text-2xl underline">Dogs</h2>
+        <h2 className="text-center text-2xl profile-heading">Dogs</h2>
       </div>
       <div className="dog-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {userInfo &&
@@ -139,7 +139,7 @@ export function UserShow() {
         {currentUser === userInfo.id ? (
           <div>
             {!isModalVisible ? (
-              <button type="button" className="modal-btn" onClick={openModal}>
+              <button type="button" className="mt-12 friend-btn" onClick={openModal}>
                 Edit Profile
               </button>
             ) : null}
