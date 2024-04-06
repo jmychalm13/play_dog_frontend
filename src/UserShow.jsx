@@ -85,7 +85,10 @@ export function UserShow() {
           {userInfo &&
             userInfo.friendships &&
             userInfo.friendships.map((friendship) => (
-              <div key={friendship.id} className="request-card">
+              <div
+                key={friendship.id}
+                className="p-5 shadow-[rgba(255,255,255,_0.25)_0px_25px_50px_-12px] request-card"
+              >
                 <img
                   className="w-24 h-24 mb-3 rounded-full shadow-lg"
                   src={friendship.friend_image}
@@ -120,7 +123,7 @@ export function UserShow() {
           userInfo.dogs &&
           userInfo.dogs.map((dog) => (
             <div className="card flex justify-center" key={dog.id}>
-              <div className="bg-white shadow-lg rounded-lg overflow-hidden w-3/5">
+              <div className="shadow-[rgba(255,255,255,_0.25)_0px_25px_50px_-12px] bg-neutral-300 rounded-lg overflow-hidden w-3/5">
                 <img className="w-full" src={dog.image_url} alt="" />
                 <div className="p-4 flex justify-between items-center">
                   <h2 className="text-gray-800 text-lg font-semibold">{dog.name}</h2>
