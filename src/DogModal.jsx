@@ -104,7 +104,7 @@ export function DogModal(props) {
   return (
     <div className="modal-main">
       <form
-        className="border rounded relative justify-center max-w-xl py-4 mx-auto bg-fuchsia-400 shadow-2xl"
+        className="p-5 border rounded relative justify-center max-w-xl py-4 mx-auto bg-gradient-to-t from-slate-300 to-slate-500 shadow-2xl"
         onSubmit={handleSubmit}
       >
         <span
@@ -115,15 +115,15 @@ export function DogModal(props) {
         </span>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="image_url">Profile Image: </label>
-          <input type="text" name="image_url" defaultValue={props.dog.image_url} />
+          <input className="rounded-lg shadow-lg" type="text" name="image_url" defaultValue={props.dog.image_url} />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="name">Name: </label>
-          <input type="text" name="name" defaultValue={props.dog.name} />
+          <input className="rounded-lg shadow-lg" type="text" name="name" defaultValue={props.dog.name} />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="breed">Breed: </label>
-          <input type="text" name="breed" defaultValue={props.dog.breed} />
+          <input className="rounded-lg shadow-lg" type="text" name="breed" defaultValue={props.dog.breed} />
         </div>
         <label htmlFor="behaviors">Behaviors:</label>
         <ul>
@@ -135,10 +135,10 @@ export function DogModal(props) {
                   <div>{behavior.behavior}</div>
                   <div className="flex">
                     <button type="button" onClick={() => handleDelete(index, behavior.id)}>
-                      <TrashIcon className="h-6 w-6 text-blue-500" />
+                      <TrashIcon className="h-6 w-6 text-emerald-500" />
                     </button>
                     <button type="button" onClick={() => handleEdit(index, behavior.behavior)}>
-                      <PencilSquareIcon className="h-6 w-6 text-blue-500" />
+                      <PencilSquareIcon className="h-6 w-6 text-emerald-500" />
                     </button>
                   </div>
                 </>
@@ -153,10 +153,10 @@ export function DogModal(props) {
                   />
                   <div className="flex">
                     <button type="button" onClick={() => handleSave(behavior)}>
-                      <DocumentCheckIcon className="h-6 w-6 text-blue-500" />
+                      <DocumentCheckIcon className="h-6 w-6 text-emerald-500" />
                     </button>
                     <button type="button" onClick={handleCancelEdit}>
-                      <XCircleIcon className="h-6 w-6 text-blue-500" />
+                      <XCircleIcon className="h-6 w-6 text-emerald-500" />
                     </button>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ export function DogModal(props) {
               <div>Add Behavior</div>
               <div className="">
                 <button type="button" onClick={setIsInputVisible}>
-                  <PlusIcon className="h-6 w-6 text-blue-500" />
+                  <PlusIcon className="h-6 w-6 text-emerald-500" />
                 </button>
               </div>
             </li>
@@ -184,10 +184,10 @@ export function DogModal(props) {
               <div className="flex">
                 <div>
                   <button type="button" onClick={handleAddBehaviorToDatabase}>
-                    <DocumentCheckIcon className="h-6 w-6 text-blue-500" />
+                    <DocumentCheckIcon className="h-6 w-6 text-emerald-500" />
                   </button>
                   <button type="button" onClick={handleCancelAddBehavior}>
-                    <XCircleIcon className="h-6 w-6 text-blue-500" />
+                    <XCircleIcon className="h-6 w-6 text-emerald-500" />
                   </button>
                 </div>
               </div>
@@ -195,10 +195,7 @@ export function DogModal(props) {
           )}
         </ul>
         <div className="button">
-          <button
-            className="border bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-            type="submit"
-          >
+          <button className="edit-user-btn" type="submit">
             Update
           </button>
         </div>
