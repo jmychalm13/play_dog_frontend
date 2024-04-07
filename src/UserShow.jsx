@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Modal } from "./UserModal";
-// import { EditUserModal } from "./EditUserModal";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useParams } from "react-router-dom";
-// import "./Modal.css";
+import { DogModal } from "./DogModal";
 
 export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
@@ -15,6 +14,8 @@ export function UserShow() {
   // eslint-disable-next-line no-unused-vars
   const [pendingFriends, setPendingFriends] = useState([]);
   const [currentUser, setCurrentUser] = useState(+localStorage.getItem("userId"));
+  const [isDogModalVisible, setIsDogModalVisible] = useState(false);
+  const [dogInfo, setDogInfo] = useState({});
 
   const { id } = useParams();
 
@@ -27,9 +28,14 @@ export function UserShow() {
 
   const openModal = () => setIsModalVisible(true);
 
-  const handleHideModal = () => {
-    setIsModalVisible(false);
+  const handleHideModal = () => setIsModalVisible(false);
+
+  const openDogModal = (dog) => {
+    setDogInfo(dog);
+    setIsDogModalVisible(true);
   };
+
+  const handleHideDogModal = () => setIsModalVisible(false);
 
   const onUpdateUser = (id, formData) => {
     axios.patch(`http://localhost:3000/users/${id}.json`, formData).then((response) => {
@@ -127,9 +133,16 @@ export function UserShow() {
                   <h2 className="text-gray-800 text-lg font-semibold">{dog.age}</h2>
                 </div>
                 <div className="flex justify-center">
-                  <Link to={`/dogs/${dog.id}`} className="friend-btn">
-                    More Info
-                  </Link>
+                  {!isDogModalVisible ? (
+                    <button type="button" className="friend-btn" onClick={() => openDogModal(dog)}>
+                      More Info
+                    </button>
+                  ) : null}
+                  {isDogModalVisible && (
+                    <div className="overlay">
+                      <DogModal show={isDogModalVisible} onClose={handleHideDogModal} dog={dogInfo}></DogModal>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -145,9 +158,12 @@ export function UserShow() {
             ) : null}
             {isModalVisible && (
               <div className="overlay">
-                <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
-                  {/* <EditUserModal closeModal={handleHideModal} /> */}
-                </Modal>
+                <Modal
+                  show={isModalVisible}
+                  onClose={handleHideModal}
+                  user={userInfo}
+                  onUpdateUser={onUpdateUser}
+                ></Modal>
               </div>
             )}
           </div>
