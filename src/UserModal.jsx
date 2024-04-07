@@ -32,11 +32,11 @@ export function Modal(props) {
           >
             close
           </span>
-          <div className="relative w-full mb-5 group">
+          <div className="user-modal-input relative w-full mb-5 group">
             <label htmlFor="image_url">Profile Image: </label>
             <input type="text" name="image_url" defaultValue={props.user.image_url} style={{ padding: "0.5rem" }} />
           </div>
-          <div className="relative w-full mb-5 group">
+          <div className="user-modal-input relative w-full mb-5 group">
             <label htmlFor="name">Username: </label>
             <input type="text" name="name" defaultValue={props.user.name} style={{ padding: "0.5rem" }} />
           </div>

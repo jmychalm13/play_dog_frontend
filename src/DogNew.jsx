@@ -70,8 +70,11 @@ export function DogNew() {
       ></div>
       <div className="absolute inset-0 bg-gray-900/40"></div>
       <div className="py-12 z-10 relative w-1/2 flex items-center justify-center text-white ml-auto">
-        <form onSubmit={handleSubmit} className="border-emerald-800 shadow-xl p-12 rounded-lg border space-y-4">
-          <h1 className="text-3xl font-bold mb-4 text-center">Add Pet</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-neutral-200 border-emerald-800 shadow-xl p-12 rounded-lg border space-y-4"
+        >
+          <h1 className="text-emerald-900 text-3xl font-bold mb-4 text-center">Add Pet</h1>
           <div>
             <input
               type="text"
@@ -99,7 +102,7 @@ export function DogNew() {
               type="number"
               name="age"
               className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
-              value={dogData.age}
+              value={dogData.age || ""}
               onChange={handleInputChange}
               placeholder="Enter pet's age"
               required
