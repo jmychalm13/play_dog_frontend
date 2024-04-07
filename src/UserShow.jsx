@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Modal } from "./UserModal";
-import { EditUserModal } from "./EditUserModal";
+// import { EditUserModal } from "./EditUserModal";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { useParams } from "react-router-dom";
 // import "./Modal.css";
@@ -90,7 +90,7 @@ export function UserShow() {
                 className="p-5 shadow-[rgba(255,255,255,_0.25)_0px_25px_50px_-12px] request-card"
               >
                 <img
-                  className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                  className="w-24 h-24 mb-3 rounded-full shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
                   src={friendship.friend_image}
                   alt="profile pic"
                 />
@@ -149,7 +149,7 @@ export function UserShow() {
             {isModalVisible && (
               <div className="overlay">
                 <Modal show={isModalVisible} onClose={handleHideModal} user={userInfo} onUpdateUser={onUpdateUser}>
-                  <EditUserModal closeModal={handleHideModal} />
+                  {/* <EditUserModal closeModal={handleHideModal} /> */}
                 </Modal>
               </div>
             )}

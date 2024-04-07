@@ -17,12 +17,13 @@ export function Modal(props) {
     props.onClose();
     event.target.reset();
   };
+
   // eslint-disable-next-line react/prop-types
   if (props.show) {
     return (
       <div>
         <form
-          className="border rounded relative justify-center max-w-xl py-4 mx-auto bg-fuchsia-400 shadow-2xl modal-main"
+          className="border-zinc-900 rounded relative justify-center max-w-xl py-4 mx-auto bg-zinc-600 modal-main shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
           onSubmit={handleSubmit}
         >
           <span
@@ -31,27 +32,21 @@ export function Modal(props) {
           >
             close
           </span>
-          <div className="relative z-0 w-full mb-5 group">
+          <div className="relative w-full mb-5 group">
             <label htmlFor="image_url">Profile Image: </label>
-            <input type="text" name="image_url" defaultValue={props.user.image_url} />
+            <input type="text" name="image_url" defaultValue={props.user.image_url} style={{ padding: "0.5rem" }} />
           </div>
-          <div className="relative z-0 w-full mb-5 group">
+          <div className="relative w-full mb-5 group">
             <label htmlFor="name">Username: </label>
-            <input type="text" name="name" defaultValue={props.user.name} />
+            <input type="text" name="name" defaultValue={props.user.name} style={{ padding: "0.5rem" }} />
           </div>
           <div className="button">
-            <button
-              type="button"
-              className="border bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-            >
+            <button type="button" className="edit-user-btn">
               <Link to="/dogs/new">Add Pet</Link>
             </button>
           </div>
           <div className="button">
-            <button
-              className="border bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-              type="submit"
-            >
+            <button className="edit-user-btn" type="submit">
               Update
             </button>
           </div>
