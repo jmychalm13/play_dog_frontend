@@ -43,7 +43,7 @@ export function DogsIndex() {
   useEffect(getCurrentUser, []);
 
   return (
-    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover bg-center h-screen relative">
+    <section className="bg-gradient-to-b from-gray-300 to-green-800 bg-cover h-full bg-center relative">
       <h1 className="text-emerald-900 text-center text-5xl underline">All Pets</h1>
       {isEditModalVisible && (
         <div className="overlay">

@@ -73,9 +73,9 @@ export function UserShow() {
 
   return (
     <section className="bg-gradient-to-b from-zinc-800 to-green-800 bg-cover bg-center h-full p-5 text-white">
-      <h1 className="profile-heading-username text-3xl text-center">{userInfo.name}</h1>
+      <h1 className="profile-heading-username pb-5 text-3xl text-center">{userInfo.name}</h1>
       <div className="flex justify-center">
-        <div className="shadow-lg rounded-lg overflow-hidden w-1/4">
+        <div className="shadow-lg rounded-lg overflow-hidden w-1/4 border border-slate-900">
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
       </div>
@@ -85,10 +85,7 @@ export function UserShow() {
           {userInfo &&
             userInfo.friendships &&
             userInfo.friendships.map((friendship) => (
-              <div
-                key={friendship.id}
-                className="p-5 shadow-[rgba(255,255,255,_0.25)_0px_25px_50px_-12px] request-card"
-              >
+              <div key={friendship.id} className="p-5 request-card border-2 border-slate-900">
                 <img
                   className="w-24 h-24 mb-3 rounded-full shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
                   src={friendship.friend_image}
@@ -103,7 +100,7 @@ export function UserShow() {
                       </button>
                     </div>
                   ) : (
-                    <div className="border rounded-lg border-emerald-900 text-emerald-900 flex items-center justify-center">
+                    <div className="border-2 rounded-lg border-emerald-900 text-emerald-900 flex items-center justify-center">
                       <p className="flex items-center text-center">
                         Friends
                         <HeartIcon className="w-6 h-6 text-emerald-900" />
@@ -123,7 +120,7 @@ export function UserShow() {
           userInfo.dogs &&
           userInfo.dogs.map((dog) => (
             <div className="card flex justify-center" key={dog.id}>
-              <div className="shadow-[rgba(255,255,255,_0.25)_0px_25px_50px_-12px] bg-neutral-300 rounded-lg overflow-hidden w-3/5">
+              <div className="bg-neutral-300 rounded-lg overflow-hidden w-3/5 border-2 border-slate-900 ">
                 <img className="w-full" src={dog.image_url} alt="" />
                 <div className="p-4 flex justify-between items-center">
                   <h2 className="text-gray-800 text-lg font-semibold">{dog.name}</h2>
