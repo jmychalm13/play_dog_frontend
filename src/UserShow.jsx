@@ -35,7 +35,7 @@ export function UserShow() {
     setIsDogModalVisible(true);
   };
 
-  const handleHideDogModal = () => setIsModalVisible(false);
+  const handleHideDogModal = () => setIsDogModalVisible(false);
 
   const onUpdateUser = (id, formData) => {
     axios.patch(`http://localhost:3000/users/${id}.json`, formData).then((response) => {
@@ -140,7 +140,12 @@ export function UserShow() {
                   ) : null}
                   {isDogModalVisible && (
                     <div className="overlay">
-                      <DogModal show={isDogModalVisible} onClose={handleHideDogModal} dog={dogInfo}></DogModal>
+                      <DogModal
+                        show={openDogModal}
+                        closeModal={handleHideDogModal}
+                        onClose={handleHideDogModal}
+                        dog={dog}
+                      ></DogModal>
                     </div>
                   )}
                 </div>

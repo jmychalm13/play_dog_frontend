@@ -71,7 +71,7 @@ export function DogsIndex() {
         {dogs.map((dog) => (
           <div
             key={dog.id}
-            className="mx-auto my-3 px-4 flex flex-col items-center bg-emerald-400 border dark:border-emerald-200 rounded-lg shadow md:flex-col md:max-w-xl hover:bg-emerald-100 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
+            className="mx-auto my-3 px-4 flex flex-col items-center bg-emerald-400 border dark:border-emerald-200 rounded-lg shadow md:flex-col md:max-w-xl hover:bg-emerald-500 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
           >
             <img
               className="mt-6 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
@@ -91,28 +91,17 @@ export function DogsIndex() {
             {dog.user_id !== currentUser.id ? (
               <div className="buttons">
                 <div className="mt-4 md:mt-0 md:ml-4">
-                  <button
-                    type="button"
-                    className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                  >
+                  <button type="button" className="dogs-index-btn">
                     Schedule Playdate
                   </button>
                 </div>
               </div>
             ) : (
               <div className="mt-4">
-                <button
-                  onClick={() => openEditModal(dog)}
-                  type="button"
-                  className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                >
+                <button onClick={() => openEditModal(dog)} type="button" className="dogs-index-btn">
                   Edit Pet
                 </button>
-                <button
-                  type="button"
-                  className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                  onClick={() => handleRemoveDog(dog.id)}
-                >
+                <button type="button" className="dogs-index-btn" onClick={() => handleRemoveDog(dog.id)}>
                   Remove
                 </button>
               </div>
