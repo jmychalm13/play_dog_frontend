@@ -102,7 +102,7 @@ export function DogModal(props) {
   }, [addBehavior]);
 
   return (
-    <div className="modal-main">
+    <div className="dog-modal-input modal-main">
       <form
         className="p-5 border rounded relative justify-center max-w-xl py-4 mx-auto bg-gradient-to-t from-slate-300 to-slate-500 shadow-2xl"
         onSubmit={handleSubmit}

@@ -76,8 +76,11 @@ export function Login() {
                     Password
                   </label>
                 </div>
-                <div className="relative">
-                  <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1">
+                <div className="relative flex">
+                  <button
+                    type="submit"
+                    className="bg-emerald-700 text-white rounded-lg px-4 py-2 mx-auto hover:bg-emerald-800"
+                  >
                     Submit
                   </button>
                 </div>

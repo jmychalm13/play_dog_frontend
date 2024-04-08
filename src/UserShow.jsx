@@ -86,8 +86,8 @@ export function UserShow() {
         </div>
       </div>
       <p className="my-10 text-2xl text-center profile-heading">Friend Requests</p>
-      <div className="flex justify-center items-center">
-        <div className="grid grid-cols-3 gap-4 w-full">
+      <div className="px-5 flex justify-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full justify-center">
           {userInfo &&
             userInfo.friendships &&
             userInfo.friendships.map((friendship) => (

@@ -79,7 +79,7 @@ export function DogNew() {
             <input
               type="text"
               name="name"
-              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               value={dogData.name}
               onChange={handleInputChange}
               placeholder="Enter pet name"
@@ -90,7 +90,7 @@ export function DogNew() {
             <input
               type="text"
               name="breed"
-              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               value={dogData.breed}
               onChange={handleInputChange}
               placeholder="Enter pet's breed"
@@ -101,7 +101,7 @@ export function DogNew() {
             <input
               type="number"
               name="age"
-              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               value={dogData.age || ""}
               onChange={handleInputChange}
               placeholder="Enter pet's age"
@@ -112,7 +112,7 @@ export function DogNew() {
             <input
               type="text"
               name="image_url"
-              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               value={dogData.image_url}
               onChange={handleInputChange}
               placeholder="Upload Pic"
@@ -124,7 +124,7 @@ export function DogNew() {
               type="text"
               onChange={handleBehaviorInputChange}
               // value={behavior}
-              className="focus:outline-none focus:ring-2 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Behaviors"
             />
           </div>

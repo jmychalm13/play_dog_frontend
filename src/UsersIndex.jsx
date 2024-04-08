@@ -86,7 +86,7 @@ export function UsersIndex() {
                   {dog.age < 1 ? <p>{dog.age} year old</p> : <p>{dog.age} years old</p>}
                 </div>
               ))}
-              <div className="flex mt-4 md:mt-6">
+              <div className="mt-4 md:mt-6">
                 {!currentFriends.includes(user.id) && !pendingFriends.includes(user.id) ? (
                   <button
                     onClick={() => addFriend(user.id)}
