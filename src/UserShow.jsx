@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Modal } from "./UserModal";
-import { HeartIcon } from "@heroicons/react/24/solid";
 import { useParams } from "react-router-dom";
 import { DogModal } from "./DogModal";
+import { FriendRequests } from "./FriendRequests";
 
 export function UserShow() {
   const [userInfo, setUserInfo] = useState({});
@@ -85,49 +85,12 @@ export function UserShow() {
           <img className="w-full" src={userInfo.image_url} alt="" />
         </div>
       </div>
-      {currentFriends.length !== 0 && pendingFriends.length !== 0 ? (
-        <div>
-          <p className="my-10 text-2xl text-center profile-heading">Friend Requests</p>
-          <div className="px-5 flex justify-center items-center">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full justify-center">
-              {userInfo &&
-                userInfo.friendships &&
-                userInfo.friendships.map((friendship) => (
-                  <div key={friendship.id} className="p-5 request-card border-2 border-slate-900">
-                    <img
-                      className="w-24 h-24 mb-3 rounded-full shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
-                      src={friendship.friend_image}
-                      alt="profile pic"
-                    />
-                    <p className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{friendship.friend_name}</p>
-                    <div className="w-24 h-24 mb-3">
-                      {!friendship.status && !currentFriends.includes(friendship.friend_id) ? (
-                        <div>
-                          <button
-                            onClick={() => acceptFriendRequest(friendship.id)}
-                            type="button"
-                            className="friend-btn"
-                          >
-                            Accept Request
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="border-2 rounded-lg border-emerald-900 text-emerald-900 flex items-center justify-center">
-                          <p className="flex items-center text-center">
-                            Friends
-                            <HeartIcon className="w-6 h-6 text-emerald-900" />
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+      <FriendRequests
+        userInfo={userInfo}
+        currentFriends={currentFriends}
+        pendingFriends={pendingFriends}
+        acceptFriendRequest={acceptFriendRequest}
+      />
       <div className="my-12">
         <h2 className="text-center text-2xl profile-heading">Dogs</h2>
       </div>
