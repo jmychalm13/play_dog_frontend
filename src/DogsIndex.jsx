@@ -71,7 +71,7 @@ export function DogsIndex() {
         {dogs.map((dog) => (
           <div
             key={dog.id}
-            className="mx-auto my-3 px-4 flex flex-col items-center bg-emerald-400 border dark:border-emerald-200 rounded-lg shadow md:flex-col md:max-w-xl hover:bg-emerald-500 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
+            className="mx-auto my-3 px-4 flex flex-col items-center bg-emerald-800 border dark:border-emerald-200 rounded-lg shadow md:flex-col md:max-w-xl hover:bg-emerald-500 border-emerald-700 dark:bg-emerald-800 dark:hover:bg-emerald-700"
           >
             <img
               className="mt-6 object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
