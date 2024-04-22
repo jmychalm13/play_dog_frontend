@@ -6,9 +6,10 @@ export function DogNew() {
     breed: "",
     name: "",
     age: 0,
-    image_url: "",
     behaviors: [],
   });
+
+  const [uploadedImg, setUploadedImg] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -16,6 +17,14 @@ export function DogNew() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleSetFile = (event) => {
+    if (event.target.files.length > 0) {
+      setUploadedImg(event.target.files[0]);
+    } else {
+      console.log("problem Houston");
+    }
   };
 
   const handleBehaviorInputChange = (event) => {
@@ -28,13 +37,17 @@ export function DogNew() {
     const currentUserId = +localStorage.getItem("userId");
     let responseId;
     if (event.target.checkValidity()) {
+      const formData = new FormData();
+      formData.append("user_id", currentUserId);
+      formData.append("name", dogData.name);
+      formData.append("breed", dogData.breed);
+      formData.append("age", dogData.age);
+      formData.append("image_url", uploadedImg);
       axios
-        .post("http://localhost:3000/dogs.json", {
-          user_id: currentUserId,
-          name: dogData.name,
-          breed: dogData.breed,
-          age: dogData.age,
-          image_url: dogData.image_url,
+        .post("http://localhost:3000/dogs.json", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then((response) => {
           responseId = response.data.id;
@@ -110,12 +123,10 @@ export function DogNew() {
           </div>
           <div>
             <input
-              type="text"
+              type="file"
               name="image_url"
               className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
-              value={dogData.image_url}
-              onChange={handleInputChange}
-              placeholder="Upload Pic"
+              onChange={handleSetFile}
               required
             />
           </div>
