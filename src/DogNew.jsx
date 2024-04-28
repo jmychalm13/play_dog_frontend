@@ -22,6 +22,7 @@ export function DogNew() {
   const handleSetFile = (event) => {
     if (event.target.files.length > 0) {
       setUploadedImg(event.target.files[0]);
+      console.log(event.target.files[0]);
     } else {
       console.log("problem Houston");
     }
@@ -43,6 +44,7 @@ export function DogNew() {
       formData.append("breed", dogData.breed);
       formData.append("age", dogData.age);
       formData.append("image_url", uploadedImg);
+      console.log(uploadedImg);
       axios
         .post("http://localhost:3000/dogs.json", formData, {
           headers: {
@@ -68,8 +70,9 @@ export function DogNew() {
         .catch((error) => {
           console.log(error);
         });
+      // const userId = localStorage.getItem("userId");
       event.target.reset();
-      window.location.href = "/dogs";
+      // window.location.href = `/users/${userId}`;
     }
   };
 
@@ -130,7 +133,7 @@ export function DogNew() {
               required
             />
           </div>
-          <div>
+          {/* <div>
             <input
               type="text"
               onChange={handleBehaviorInputChange}
@@ -138,7 +141,7 @@ export function DogNew() {
               className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
               placeholder="Behaviors"
             />
-          </div>
+          </div> */}
           <div className="text-center">
             <button type="submit" className="bg-emerald-800 px-2 rounded-md border border-black">
               Add
