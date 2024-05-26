@@ -22,7 +22,7 @@ export function UserShow() {
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${id}.json`).then((response) => {
       setUserInfo(response.data);
-      console.log(response.data);
+      console.log(response.data, "userInfoResponse");
     });
   };
 

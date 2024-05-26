@@ -27,11 +27,11 @@ export function DogNew() {
       console.log("problem Houston");
     }
   };
-
-  const handleBehaviorInputChange = (event) => {
-    const behaviors = event.target.value.split(",").map((behavior) => behavior.trim());
-    setDogData({ ...dogData, behaviors });
-  };
+  // Todo: Complete behavior funcitonality
+  // const handleBehaviorInputChange = (event) => {
+  //   const behaviors = event.target.value.split(",").map((behavior) => behavior.trim());
+  //   setDogData({ ...dogData, behaviors });
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,26 +53,27 @@ export function DogNew() {
         })
         .then((response) => {
           responseId = response.data.id;
-          dogData.behaviors.map((newBehavior) => {
-            axios
-              .post("http://localhost:3000/behaviors.json", {
-                dog_id: responseId,
-                behavior: newBehavior,
-              })
-              .then((response) => {
-                console.log(response.data);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          });
+          const userId = localStorage.getItem("userId");
+          event.target.reset();
+          window.location.href = `/users/${userId}`;
+          // Todo: post request to behaviors
+          // dogData.behaviors.map((newBehavior) => {
+          //   axios
+          //     .post("http://localhost:3000/behaviors.json", {
+          //       dog_id: responseId,
+          //       behavior: newBehavior,
+          //     })
+          //     .then((response) => {
+          //       console.log(response.data);
+          //     })
+          //     .catch((error) => {
+          //       console.log(error);
+          //     });
+          // });
         })
         .catch((error) => {
           console.log(error);
         });
-      // const userId = localStorage.getItem("userId");
-      event.target.reset();
-      // window.location.href = `/users/${userId}`;
     }
   };
 

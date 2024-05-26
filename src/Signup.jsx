@@ -14,6 +14,9 @@ export function Signup() {
       .post("http://localhost:3000/users.json", params)
       .then((response) => {
         console.log(response.data);
+        // get new user ID
+        const newId = response.data.id;
+        window.location.href = `/login`;
       })
       .catch((error) => {
         console.log(error.response.data.errors);
