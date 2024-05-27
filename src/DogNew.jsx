@@ -3,18 +3,22 @@ import { useState, useEffect } from "react";
 import { RatingSystem } from "./RatingSystem";
 
 export function DogNew() {
-  const [dogData, setDogData] = useState({
-    breed: "",
-    name: "",
-    age: 0,
-    behaviors: [],
-  });
-
   const predefinedBehaviors = ["Playful", "Happy", "Reactive", "Calm", "Nervous"];
 
   const [uploadedImg, setUploadedImg] = useState(null);
 
   const [behaviors, setBehaviors] = useState(predefinedBehaviors.map((behavior) => ({ behavior, rating: 1 })));
+
+  const [dogData, setDogData] = useState({
+    breed: "",
+    name: "",
+    age: 0,
+    behavior_attributes: behaviors,
+  });
+
+  const handleRatingChange = (behaviorName, rating) => {
+    setBehaviors((prevBehaviors) => prevBehaviors.map((b) => (b.behavior === behaviorName ? { ...b, rating } : b)));
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -44,7 +48,10 @@ export function DogNew() {
       formData.append("breed", dogData.breed);
       formData.append("age", dogData.age);
       formData.append("image_url", uploadedImg);
-      console.log(uploadedImg);
+      behaviors.forEach((behavior, index) => {
+        formData.append(`dog[behavior_attributes][${index}][behavior]`, behavior.behavior);
+        formData.append(`dog[behavior_attributes][${index}][rating]`, behavior.rating);
+      });
       axios
         .post("http://localhost:3000/dogs.json", formData, {
           headers: {
@@ -111,10 +118,11 @@ export function DogNew() {
               required
             />
           </div>
+          <p className="text-center text-xl text-emerald-900 font-bold">Behaviors</p>
           {behaviors.map((b, index) => (
             <div key={index} className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">{b.behavior}</label>
-              <RatingSystem rating={b.rating} />
+              <RatingSystem rating={b.rating} onRatingChange={(rating) => handleRatingChange(b.behavior, rating)} />
             </div>
           ))}
           <div>
