@@ -41,6 +41,9 @@ export function DogModal(props) {
           <label htmlFor="breed">Breed: </label>
           <input className="rounded-lg shadow-lg" type="text" name="breed" defaultValue={props.dog.breed} />
         </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <label htmlFor="breed">Behaviors: </label>
+        </div>
         <div className="button">
           <button className="edit-user-btn" type="submit">
             Update

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { RatingSystem } from "./RatingSystem";
 
 export function DogNew() {
   const [dogData, setDogData] = useState({
@@ -9,7 +10,11 @@ export function DogNew() {
     behaviors: [],
   });
 
+  const predefinedBehaviors = ["Playful", "Happy", "Reactive", "Calm", "Nervous"];
+
   const [uploadedImg, setUploadedImg] = useState(null);
+
+  const [behaviors, setBehaviors] = useState(predefinedBehaviors.map((behavior) => ({ behavior, rating: 1 })));
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,11 +32,6 @@ export function DogNew() {
       console.log("problem Houston");
     }
   };
-  // Todo: Complete behavior funcitonality
-  // const handleBehaviorInputChange = (event) => {
-  //   const behaviors = event.target.value.split(",").map((behavior) => behavior.trim());
-  //   setDogData({ ...dogData, behaviors });
-  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -56,20 +56,6 @@ export function DogNew() {
           const userId = localStorage.getItem("userId");
           event.target.reset();
           window.location.href = `/users/${userId}`;
-          // Todo: post request to behaviors
-          // dogData.behaviors.map((newBehavior) => {
-          //   axios
-          //     .post("http://localhost:3000/behaviors.json", {
-          //       dog_id: responseId,
-          //       behavior: newBehavior,
-          //     })
-          //     .then((response) => {
-          //       console.log(response.data);
-          //     })
-          //     .catch((error) => {
-          //       console.log(error);
-          //     });
-          // });
         })
         .catch((error) => {
           console.log(error);
@@ -125,6 +111,12 @@ export function DogNew() {
               required
             />
           </div>
+          {behaviors.map((b, index) => (
+            <div key={index} className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">{b.behavior}</label>
+              <RatingSystem rating={b.rating} />
+            </div>
+          ))}
           <div>
             <input
               type="file"
@@ -134,15 +126,6 @@ export function DogNew() {
               required
             />
           </div>
-          {/* <div>
-            <input
-              type="text"
-              onChange={handleBehaviorInputChange}
-              // value={behavior}
-              className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
-              placeholder="Behaviors"
-            />
-          </div> */}
           <div className="text-center">
             <button type="submit" className="bg-emerald-800 px-2 rounded-md border border-black">
               Add

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { HeartIcon } from "@heroicons/react/24/solid";
+import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 
 export function FriendRequests(props) {
   return (
@@ -31,8 +31,8 @@ export function FriendRequests(props) {
                   ) : (
                     <div className="border-2 rounded-lg border-emerald-900 text-emerald-900 flex items-center justify-center">
                       <p className="flex items-center text-center">
-                        Friends
-                        <HeartIcon className="w-6 h-6 text-emerald-900" />
+                        Message
+                        <ChatBubbleLeftEllipsisIcon className="w-6 h-6 text-emerald-900" />
                       </p>
                     </div>
                   )}
