@@ -134,7 +134,7 @@ export function UserShow() {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke="#1E293B"
+                stroke="#064E3B"
                 className="size-37"
               >
                 <path
