@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 export function RatingSystem({ rating, onRatingChange }) {
@@ -5,17 +6,21 @@ export function RatingSystem({ rating, onRatingChange }) {
 
   return (
     <div className="star-rating">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <span
-          key={star}
-          className={`star ${star <= (hover || rating) ? "text-yellow-400" : "text-gray-400"}`}
-          onMouseEnter={() => setHover(star)}
-          onMouseLeave={() => setHover(0)}
-          onClick={() => onRatingChange(star)}
-        >
-          &#9733;
-        </span>
-      ))}
+      <div className="flex space-x-4">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span
+            key={star}
+            className={`cursor-pointer transition-transform transform ${
+              star <= (hover || rating) ? "text-emerald-800" : "text-gray-400"
+            } ${hover === star ? "scale-125" : ""}`}
+            onMouseEnter={() => setHover(star)}
+            onMouseLeave={() => setHover(0)}
+            onClick={() => onRatingChange(star)}
+          >
+            &#9733;
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
