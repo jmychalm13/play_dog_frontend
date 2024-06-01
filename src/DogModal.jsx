@@ -1,20 +1,42 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import "./Modal.css";
 import axios from "axios";
 
 export function DogModal(props) {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedImg, setUploadedImg] = useState(props.dog.image_url);
+
+  const handleSetFile = (event) => {
+    if (event.target.files.length > 0) {
+      setUploadedImg(event.target.files[0]);
+      console.log(event.target.files[0]);
+    } else {
+      console.log("problem Houston");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.target);
     const formData = new FormData(event.target);
+    formData.append("image_url", uploadedImg);
     const formObject = {};
     formData.forEach((value, key) => {
       formObject[key] = value;
     });
+    console.log("formObject", formObject);
     // axios request to update other fields
-    axios.patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formObject).then((response) => {
-      console.log("submit", response);
-    });
+    axios
+      .patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formObject, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log("submit", response);
+      });
   };
 
   return (
@@ -29,9 +51,17 @@ export function DogModal(props) {
         >
           close
         </span>
+        <div className="flex justify-center items-center">
+          <img src={props.dog.image_url} className="rounded-lg object-cover w-1/2 overflow-hidden" alt="" />
+        </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="image_url">Profile Image: </label>
-          <input className="rounded-lg shadow-lg" type="text" name="image_url" defaultValue={props.dog.image_url} />
+          <input
+            type="file"
+            className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
+            onChange={handleSetFile}
+            required
+          />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="name">Name: </label>

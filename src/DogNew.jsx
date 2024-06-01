@@ -39,7 +39,7 @@ export function DogNew() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const currentUserId = +localStorage.getItem("userId");
-    let responseId;
+    // let responseId;
     if (event.target.checkValidity()) {
       const formData = new FormData();
       formData.append("user_id", currentUserId);
@@ -84,7 +84,7 @@ export function DogNew() {
       <div className="py-12 z-10 relative w-1/2 flex items-center justify-center text-white ml-auto">
         <form
           onSubmit={handleSubmit}
-          className="bg-neutral-200 border-emerald-800 shadow-xl p-6 rounded-lg border space-y-4"
+          className="bg-neutral-200 border-emerald-800 shadow-2xl p-6 rounded-lg border space-y-4"
         >
           <h1 className="text-emerald-900 text-3xl font-bold mb-4 text-center">Add Pet</h1>
           <div>
