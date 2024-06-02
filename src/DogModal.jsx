@@ -29,10 +29,12 @@ export function DogModal(props) {
     console.log(event.target);
     const formData = new FormData(event.target);
     if (selectedFile) {
-      formData.append("image_url", selectedFile);
+      formData.append("dog[image_url]", selectedFile);
+    } else {
+      formData.append("dog[image_url]", props.dog.image_url);
     }
-    formData.append("name", event.target.name.value);
-    formData.append("breed", event.target.breed.value);
+    formData.append("dog[name]", event.target.name.value);
+    formData.append("dog[breed]", event.target.breed.value);
     // formData.append("behaviors", event.target.behaviors.value);
     console.log("formData", formData);
     axios
@@ -46,9 +48,18 @@ export function DogModal(props) {
       });
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setDogData({ ...dogData, [name]: value });
+  };
+
   useEffect(() => {
     setUploadedImg(props.dog.image_url);
     setSelectedFile(null);
+    setDogData({
+      name: props.dog.name,
+      breed: props.dog.breed,
+    });
     console.log("Dog Prop in Dog Modal" + props.dog);
   }, [props.dog]);
 
@@ -73,19 +84,27 @@ export function DogModal(props) {
             type="file"
             className="focus:outline-none focus:ring-0 focus:ring-gray-700 mt-1 p-2 w-full rounded-md bg-emerald-800 text-white"
             onChange={handleSetFile}
-            required
           />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="name">Name: </label>
-          <input className="rounded-lg shadow-lg" type="text" name="name" defaultValue={props.dog.name} />
+          <input
+            className="rounded-lg shadow-lg"
+            type="text"
+            name="name"
+            defaultValue={props.dog.name}
+            onChange={handleChange}
+          />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="breed">Breed: </label>
-          <input className="rounded-lg shadow-lg" type="text" name="breed" defaultValue={props.dog.breed} />
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label htmlFor="breed">Behaviors: </label>
+          <input
+            className="rounded-lg shadow-lg"
+            type="text"
+            name="breed"
+            defaultValue={props.dog.breed}
+            onChange={handleChange}
+          />
         </div>
         <div className="button">
           <button className="edit-user-btn" type="submit">
