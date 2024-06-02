@@ -16,6 +16,7 @@ export function UserShow() {
   const [currentUser, setCurrentUser] = useState(+localStorage.getItem("userId"));
   const [isDogModalVisible, setIsDogModalVisible] = useState(false);
   const [dogInfo, setDogInfo] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   const { id } = useParams();
 
@@ -41,8 +42,7 @@ export function UserShow() {
   const handleHideDogModal = () => {
     setIsDogModalVisible(false);
     setDogInfo({});
-    console.log("dogInfoOnClose", dogInfo);
-    console.log("closing modal");
+    setRefresh((prev) => !prev);
   };
 
   const onUpdateUser = (id, formData) => {
@@ -83,7 +83,7 @@ export function UserShow() {
     handleGetUser();
     getAllFriendships();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   return (
     <section className="bg-gradient-to-b from-zinc-800 to-green-800 bg-cover bg-center h-full p-5 text-white">

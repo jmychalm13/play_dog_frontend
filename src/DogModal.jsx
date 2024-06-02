@@ -12,12 +12,11 @@ export function DogModal(props) {
     breed: props.dog.breed,
     behaviors: props.dog.behaviors,
   });
-  console.log("props", props.dog);
 
   const handleSetFile = (event) => {
     if (event.target.files.length > 0) {
       setSelectedFile(event.target.files[0]);
-      setUploadedImg(URL.createObjectURL(event.target.files[0])); // Show the preview of the selected image
+      setUploadedImg(URL.createObjectURL(event.target.files[0]));
       console.log("Selected file:", event.target.files[0]);
     } else {
       console.log("problem Houston");
@@ -26,7 +25,6 @@ export function DogModal(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
     const formData = new FormData(event.target);
     if (selectedFile) {
       formData.append("dog[image_url]", selectedFile);
@@ -36,7 +34,6 @@ export function DogModal(props) {
     formData.append("dog[name]", event.target.name.value);
     formData.append("dog[breed]", event.target.breed.value);
     // formData.append("behaviors", event.target.behaviors.value);
-    console.log("formData", formData);
     axios
       .patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formData, {
         headers: {
@@ -45,6 +42,7 @@ export function DogModal(props) {
       })
       .then((response) => {
         console.log("submit", response);
+        props.onClose();
       });
   };
 
@@ -60,7 +58,6 @@ export function DogModal(props) {
       name: props.dog.name,
       breed: props.dog.breed,
     });
-    console.log("Dog Prop in Dog Modal" + props.dog);
   }, [props.dog]);
 
   return (
