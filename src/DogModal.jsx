@@ -1,17 +1,24 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Modal.css";
 import axios from "axios";
 
 export function DogModal(props) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false);
   const [uploadedImg, setUploadedImg] = useState(props.dog.image_url);
+  const [dogData, setDogData] = useState({
+    name: props.dog.name,
+    breed: props.dog.breed,
+    behaviors: props.dog.behaviors,
+  });
+  console.log("props", props.dog);
 
   const handleSetFile = (event) => {
     if (event.target.files.length > 0) {
-      setUploadedImg(event.target.files[0]);
-      console.log(event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+      setUploadedImg(URL.createObjectURL(event.target.files[0])); // Show the preview of the selected image
+      console.log("Selected file:", event.target.files[0]);
     } else {
       console.log("problem Houston");
     }
@@ -21,15 +28,15 @@ export function DogModal(props) {
     event.preventDefault();
     console.log(event.target);
     const formData = new FormData(event.target);
-    formData.append("image_url", uploadedImg);
-    const formObject = {};
-    formData.forEach((value, key) => {
-      formObject[key] = value;
-    });
-    console.log("formObject", formObject);
-    // axios request to update other fields
+    if (selectedFile) {
+      formData.append("image_url", selectedFile);
+    }
+    formData.append("name", event.target.name.value);
+    formData.append("breed", event.target.breed.value);
+    // formData.append("behaviors", event.target.behaviors.value);
+    console.log("formData", formData);
     axios
-      .patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formObject, {
+      .patch(`http://localhost:3000/dogs/${props.dog.id}.json`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -38,6 +45,12 @@ export function DogModal(props) {
         console.log("submit", response);
       });
   };
+
+  useEffect(() => {
+    setUploadedImg(props.dog.image_url);
+    setSelectedFile(null);
+    console.log("Dog Prop in Dog Modal" + props.dog);
+  }, [props.dog]);
 
   return (
     <div className="dog-modal-input modal-main">
@@ -52,7 +65,7 @@ export function DogModal(props) {
           close
         </span>
         <div className="flex justify-center items-center">
-          <img src={props.dog.image_url} className="rounded-lg object-cover w-1/2 overflow-hidden" alt="" />
+          <img src={uploadedImg} className="rounded-lg object-cover w-1/2 overflow-hidden" alt="" />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label htmlFor="image_url">Profile Image: </label>

@@ -22,7 +22,6 @@ export function UserShow() {
   const handleGetUser = () => {
     axios.get(`http://localhost:3000/users/${id}.json`).then((response) => {
       setUserInfo(response.data);
-      console.log(response.data, "userInfoResponse");
     });
   };
 
@@ -30,12 +29,21 @@ export function UserShow() {
 
   const handleHideModal = () => setIsModalVisible(false);
 
-  const openDogModal = (dog) => {
-    setDogInfo(dog);
-    setIsDogModalVisible(true);
+  const openDogModal = (dogId) => {
+    const dog = userInfo.dogs.find((dog) => dog.id === dogId);
+    if (dog) {
+      setDogInfo(dog);
+      setIsDogModalVisible(true);
+      console.log(`dog coming from props: ${dog}`);
+    }
   };
 
-  const handleHideDogModal = () => setIsDogModalVisible(false);
+  const handleHideDogModal = () => {
+    setIsDogModalVisible(false);
+    setDogInfo({});
+    console.log("dogInfoOnClose", dogInfo);
+    console.log("closing modal");
+  };
 
   const onUpdateUser = (id, formData) => {
     axios.patch(`http://localhost:3000/users/${id}.json`, formData).then((response) => {
@@ -107,11 +115,11 @@ export function UserShow() {
                 </div>
                 <div className="flex justify-center">
                   {!isDogModalVisible ? (
-                    <button type="button" className="friend-btn" onClick={() => openDogModal(dog)}>
+                    <button type="button" className="friend-btn" onClick={() => openDogModal(dog.id)}>
                       More Info
                     </button>
                   ) : null}
-                  {isDogModalVisible && (
+                  {isDogModalVisible && dogInfo.id === dog.id && (
                     <div className="overlay">
                       <DogModal
                         show={openDogModal}
