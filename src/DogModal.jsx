@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import "./Modal.css";
 import axios from "axios";
+import { BehaviorList } from "./BehaviorList";
 
 export function DogModal(props) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -12,6 +13,8 @@ export function DogModal(props) {
     breed: props.dog.breed,
     behaviors: props.dog.behaviors,
   });
+
+  // console.log("behaviors", props.dog.behaviors[0]["rating"]);
 
   const handleSetFile = (event) => {
     if (event.target.files.length > 0) {
@@ -57,6 +60,7 @@ export function DogModal(props) {
     setDogData({
       name: props.dog.name,
       breed: props.dog.breed,
+      behaviors: props.dog.behaviors,
     });
   }, [props.dog]);
 
@@ -102,6 +106,10 @@ export function DogModal(props) {
             defaultValue={props.dog.breed}
             onChange={handleChange}
           />
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <p className="text-center">Behaviors:</p>
+          <BehaviorList behaviors={props.dog.behaviors} />
         </div>
         <div className="button">
           <button className="edit-user-btn" type="submit">
