@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Star } from "./Star";
 
 export function Behavior({ behavior }) {
   const stars = [];
   for (let i = 0; i < behavior.rating; i++) {
-    stars.push(<Star key={i} />);
+    stars.push(
+      <span key={i} style={{ color: "gold" }}>
+        &#9733;
+      </span>
+    );
   }
 
   return (
